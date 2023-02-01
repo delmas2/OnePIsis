@@ -21,4 +21,3 @@ server.start().then(res => {
 http://localhost:4000${server.graphqlPath}`)
     );
 })
-F
