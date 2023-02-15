@@ -49,20 +49,37 @@ module.exports = {
 
             let produit = world.products.find((p) => p.id === idProduit)
 
+            let coefficient = Math.pow(produit.croissance,produit.quantite)
+
+
             if(produit === undefined){
                 throw new Error(
                     `Le produit avec l'id ${args.id} n'existe pas`)    
             }
             else{
+                context.world.money -= produit.cout*((1-coefficient)/(1-produit.croissance))
+                produit.cout=produit.cout*Math.pow(produit.croissance,ajoutQuantite)
                 produit.quantite += ajoutQuantite
                 world.lastudate=Date.now()
                 saveWorld(context)
                 return produit
             }
-
         }
         ,
-        
+        engagerManager(parent, args, context){
+            let world = context.world
+            let managerName=args.name
+            let manager = context.world.managers.find((m) => m.name === managerName)
+            let managerProduct = manager.idcible 
+            let produit = world.products.find((p) => p.id === managerProduct)
+
+            context.world.money -= manager.seuil
+            produit.managerUnlocked = true;
+            manager.unlocked = true;
+            world.lastudate=Date.now()
+            saveWorld(context)
+            return manager
+        }
 
 
     }
