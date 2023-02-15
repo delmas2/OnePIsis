@@ -19,3 +19,9 @@
   grid-row: 2 / 8;
   background-color: rgb(146, 202, 248);
 }
+
+.form{
+  position: absolute;
+  left: 750px;
+  top:  30px;
+}
