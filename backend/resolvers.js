@@ -11,6 +11,30 @@ function saveWorld(context) {
         })
 }
 
+function updateScore(context) {
+    let world = context.world
+    let produits = context.products
+    let time = Date.now()- parseInt(lastudate)
+    for (let i = 0; i < produits.length; i++) {
+        let produitactuel = produits[i]
+        if(produitactuel.managerUnlocked === true) {
+
+        }
+        else{
+            if(produitactuel.timeleft < time){
+                context.world.money+=produitactuel.revenu*produitactuel.quantite
+                context.world.score+=produitactuel.revenu*produitactuel.quantite
+            }
+            else{
+                produitactuel.timeleft-=time
+            }
+        }
+
+    }
+}
+
+
+
 
 module.exports = {
 
@@ -21,6 +45,7 @@ module.exports = {
             return context.world
         }
     },
+
     Mutation: {
 
         lancerProductionProduit(parent,args,context){
