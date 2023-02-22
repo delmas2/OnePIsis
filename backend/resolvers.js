@@ -14,37 +14,51 @@ function saveWorld(context) {
 function updateScore(context) {
     let world = context.world
     let produits = context.products
-    let time = Date.now() - parseInt(lastudate)
+    let time = Date.now() - parseInt(lastupdate)
     for (let i = 0; i < produits.length; i++) {
         let produitactuel = produits[i]
+        let qte=0
         if (produitactuel.managerUnlocked === true) {
-            if (produitactuel.timeleft != 0) {
+            if (produitactuel.timeleft < time) {
                 time -= produitactuel.timeleft
-                let qte = Math.floor(time / produitactuel.vitesse) + 1;
-                produitactuel.timeleft = time % produitactuel.vitesse
+                qte = Math.floor(time / produitactuel.vitesse) + 1;
+                produitactuel.timeleft = produitactuel.vitesse-(time % produitactuel.vitesse)
             }
-            else {
-                let qte = Math.floor(time / produitactuel.vitesse);
-                produitactuel.timeleft = time % produitactuel.vitesse
-            }
+            else{
+                produitactuel.timeleft -= time
+                qte = 0
+            }   
         }
         else {
             if (produitactuel.timeleft < time && produitactuel.timeleft != 0) {
                 produitactuel.timeleft = 0
-                let qte=1
-
+                qte = 1
             }
             else {
                 produitactuel.timeleft -= time
-                let qte=0
+                qte = 0
             }
         }
+        world.money += (produitactuel.revenu * produitactuel.quantite) * qte
+        world.score += (produitactuel.revenu * produitactuel.quantite) * qte
     }
-    context.world.money += (produitactuel.revenu * produitactuel.quantite) * qte
-    context.world.score += (produitactuel.revenu * produitactuel.quantite) * qte
-    world.lastudate = BigInt(Date.now()).toString();
+    world.lastudate = Date.now().toString();
     saveWorld(context)
 }
+
+function appliquerBonus(p,context) {
+    let world = context.world
+    let produit = world.products.find((prod) => prod.id === p.idcible)
+
+    if(p.typeratio === "vitesse"){
+        produit.vitesse = produit.vitesse/p.ratio
+    }
+    else if(p.typeratio === "gain"){
+        produit.revenu = produit.revenu*produit.ratio
+    }
+    p.unlocked=true
+    }
+
 
 
 
@@ -73,7 +87,7 @@ module.exports = {
             }
             else {
                 produit.timeleft = produit.vitesse
-                world.lastudate = BigInt(Date.now()).toString();
+                world.lastudate = Date.now().toString();
                 saveWorld(context)
                 return produit
             }
@@ -98,7 +112,14 @@ module.exports = {
                 context.world.money -= produit.cout * ((1 - coefficient) / (1 - produit.croissance))
                 produit.cout = produit.cout * Math.pow(produit.croissance, ajoutQuantite)
                 produit.quantite += ajoutQuantite
-                world.lastudate = BigInt(Date.now()).toString();
+                //parcourir boucle for avec tous les palliers mais vérifier seulement ceux unlocked = false
+                //si seuil<produit.quantité alors appliquer ratio à typeratio + passer unlocked à true pour exclure de la boucle
+                let palliersDebloquees = produit.palliers.filter(p => p.unlocked===false && p.seuil<produit.quantite)
+                
+                palliersDebloquees.forEach(p => {
+                    appliquerBonus(p,context)
+                })
+                world.lastudate = Date.now().toString()
                 saveWorld(context)
                 return produit
             }
@@ -114,7 +135,7 @@ module.exports = {
             context.world.money -= manager.seuil
             produit.managerUnlocked = true;
             manager.unlocked = true;
-            world.lastudate = BigInt(Date.now()).toString();
+            world.lastudate = Date.now().toString();
             saveWorld(context)
             return manager
         }
