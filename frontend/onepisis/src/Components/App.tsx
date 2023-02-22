@@ -1,6 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import '../styles/App.css';
+import Main from './Main';
+import './Main.tsx';
 
 const GET_WORLD = gql`
 query ExampleQuery {
@@ -76,6 +78,7 @@ query ExampleQuery {
 
 
 function App() {
+  
   const [username, setUsername] = useState("");
   function onUserNameChanged(event: React.FormEvent<HTMLInputElement>) {
     setUsername(event.currentTarget.value);
@@ -86,18 +89,24 @@ function App() {
     let storedUsername = localStorage.getItem('username');
     if (storedUsername) {}
     else{
-    storedUsername = "Copine n°" +  Math.floor(Math.random() * 10000)
+    storedUsername = "Nakama" +  Math.floor(Math.random() * 10000)
     localStorage.setItem('username', storedUsername);
     }
     setUsername(storedUsername);
     
   }, []);
 
+    
 
   const {loading, error, data, refetch } = useQuery(GET_WORLD, {
     context: { headers: { "x-user": username } }
    });
-  
+   let main = undefined
+   let corps = undefined
+   if (loading) corps = <div> Loading... </div>
+   else if (error) corps = <div> Erreur de chargement du monde ! </div>
+   else main= <div> <Main loadworld={data.getWorld} username={username} /> </div>;
+   
 
   return (
     <div className="App">
@@ -106,13 +115,12 @@ function App() {
       
   <div className="one">
 
-  <form>
-  <label className="form">
-        Nom:
-        <input type="text" value={username} onChange={onUserNameChanged} />
-  </label>
-    </form>
-
+    <div className="form">
+    <div> Nom :</div>
+    <input type="text" value={username} onChange={onUserNameChanged}/>
+    </div>
+    { corps }
+    { main}
   </div>
   
   <div className="two">Menu</div>
@@ -122,6 +130,7 @@ function App() {
     </div>
   );
 }
+
 
 
 

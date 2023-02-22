@@ -8,18 +8,18 @@ export class World {
     activeangels: number = 0
     angelbonus: number = 0
     lastupdate: string = ""
-    products : { "product": Product[] };
-    allunlocks: { "pallier": Pallier[]};
-    upgrades: { "pallier": Pallier[]};
-    angelupgrades: { "pallier": Pallier[]};
-    managers: { "pallier": Pallier[]};
+    products : Product[]
+    allunlocks: Palier[]
+    upgrades: Palier[]
+    angelupgrades: Palier[]
+    managers: Palier[]
 
     constructor() {
-        this.products = { "product":[ ] } ;
-        this.managers = { "pallier":[ ] };
-        this.upgrades = { "pallier":[ ] };
-        this.angelupgrades = { "pallier":[ ] };
-        this.allunlocks = { "pallier":[ ] };
+        this.products = [ ]
+        this.managers = [ ]
+        this.upgrades = [ ]
+        this.angelupgrades = [ ]
+        this.allunlocks = [ ]
     }
 }
 
@@ -33,16 +33,16 @@ export class Product {
     vitesse: number = 0
     quantite: number = 0
     timeleft: number = 0
+    lastupdate: number = 0
     managerUnlocked: boolean = false
-    palliers : { "pallier" : Pallier[]};
+    paliers : Palier[]
 
     constructor() {
-        this.palliers = { "pallier": [] }
-
+        this.paliers = []
     }
 }
 
-export class Pallier {
+export class Palier {
     name: string = ""
     logo: string = ""
     seuil: number = 0

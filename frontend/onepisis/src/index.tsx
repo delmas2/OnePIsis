@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './Components/App';
 import reportWebVitals from './reportWebVitals';
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://isiscapitalistgraphql.kk.kurasawa.fr/graphql',
   cache: new InMemoryCache()
  });
 
