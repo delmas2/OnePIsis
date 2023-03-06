@@ -6,7 +6,7 @@ module.exports = {
     "totalangels": 0,
     "activeangels": 0,
     "angelbonus": 2,
-    "lastupdate": 0,
+    "lastupdate": "0",
     "products": [
         {
             "id": 1,
@@ -27,7 +27,7 @@ module.exports = {
                     "idcible": 1,
                     "ratio": 2,
                     "typeratio": "vitesse",
-                    "unlocked": "false"
+                    "unlocked": false
                 },
                 {
                     "name": "Nom deuxième palier",
@@ -36,7 +36,7 @@ module.exports = {
                     "idcible": 1,
                     "ratio": 2,
                     "typeratio": "vitesse",
-                    "unlocked": "false"
+                    "unlocked": false
                 },
             ]
         },
@@ -44,6 +44,33 @@ module.exports = {
             "id": 2,
             "name": "Deuxième produit",
             "logo": "icones/deuxiemeproduit.jpg",
+            "cout": 4,
+            "croissance": 1.07,
+            "revenu": 1,
+            "vitesse": 500,
+            "quantite": 1,
+            "timeleft": 0,
+            "managerUnlocked": false,
+            "palliers": [
+                {
+                    "name": "Nom du premier palier 2",
+                    "logo": "icones/premierpalier.jpg",
+                    "seuil": 20,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+                {
+                    "name": "Nom deuxième palier 2",
+                    "logo": "icones/deuxiemepalier.jpg",
+                    "seuil": 75,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+            ]
         } 
     ],
     "allunlocks": [
@@ -54,7 +81,7 @@ module.exports = {
             "idcible": 0,
             "ratio": 2,
             "typeratio": "gain",
-            "unlocked": "false"
+            "unlocked": false
         },
     ],
     "upgrades": [
@@ -65,7 +92,7 @@ module.exports = {
             "idcible": 1,
             "ratio": 3,
             "typeratio": "gain",
-            "unlocked": "false"
+            "unlocked": false
         },
     ],
     "angelupgrades": [
@@ -76,7 +103,7 @@ module.exports = {
             "idcible": 0,
             "ratio": 3,
             "typeratio": "gain",
-            "unlocked": "false"
+            "unlocked": false
         },
     ],
     "managers": [
@@ -87,7 +114,7 @@ module.exports = {
             "idcible": 1,
             "ratio": 0,
             "typeratio": "gain",
-            "unlocked": "false"
+            "unlocked": false
         },
     ]
 };

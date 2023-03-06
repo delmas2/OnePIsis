@@ -14,15 +14,7 @@ const server = new ApolloServer({
     })
 });
 
-const [lancerProduction] = useMutation(LANCER_PRODUCTION,
-    { context: { headers: { "x-user": username }},
-    onError: (error): void => {
-        console.error("Error during lancerProduction mutation:", error);
-        // Afficher un message d'erreur à l'utilisateur
-        alert("Une erreur est survenue lors de la production.");
-    }
-    }
-   )
+
 
 
 
