@@ -71,6 +71,102 @@ module.exports = {
                     "unlocked": false
                 },
             ]
+        },
+        {
+            "id": 3,
+            "name": "Troisième produit",
+            "logo": "icones/deuxiemeproduit.jpg",
+            "cout": 4,
+            "croissance": 1.07,
+            "revenu": 1,
+            "vitesse": 500,
+            "quantite": 1,
+            "timeleft": 0,
+            "managerUnlocked": false,
+            "palliers": [
+                {
+                    "name": "Nom du premier palier 3",
+                    "logo": "icones/premierpalier.jpg",
+                    "seuil": 20,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+                {
+                    "name": "Nom deuxième palier 3",
+                    "logo": "icones/deuxiemepalier.jpg",
+                    "seuil": 75,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+            ]
+        } ,
+        {
+            "id": 4,
+            "name": "Quatrième produit",
+            "logo": "icones/deuxiemeproduit.jpg",
+            "cout": 4,
+            "croissance": 1.07,
+            "revenu": 1,
+            "vitesse": 500,
+            "quantite": 1,
+            "timeleft": 0,
+            "managerUnlocked": false,
+            "palliers": [
+                {
+                    "name": "Nom du premier palier 4",
+                    "logo": "icones/premierpalier.jpg",
+                    "seuil": 20,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+                {
+                    "name": "Nom deuxième palier 4",
+                    "logo": "icones/deuxiemepalier.jpg",
+                    "seuil": 75,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+            ]
+        }, 
+        {
+            "id": 5,
+            "name": "Cinquième produit",
+            "logo": "icones/deuxiemeproduit.jpg",
+            "cout": 4,
+            "croissance": 1.07,
+            "revenu": 1,
+            "vitesse": 500,
+            "quantite": 1,
+            "timeleft": 0,
+            "managerUnlocked": false,
+            "palliers": [
+                {
+                    "name": "Nom du premier palier 5",
+                    "logo": "icones/premierpalier.jpg",
+                    "seuil": 20,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+                {
+                    "name": "Nom deuxième palier 5",
+                    "logo": "icones/deuxiemepalier.jpg",
+                    "seuil": 75,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+            ]
         } 
     ],
     "allunlocks": [

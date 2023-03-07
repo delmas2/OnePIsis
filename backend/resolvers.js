@@ -37,7 +37,7 @@ function updateScore(context) {
                 produitactuel.timeleft = 0
                 qte = 1
             }
-            else if(produitactuel.timeleft === 0) {
+            else if (produitactuel.timeleft === 0) {
                 qte = 0
             }
             else {
@@ -121,7 +121,6 @@ module.exports = {
     Mutation: {
 
         lancerProductionProduit(parent, args, context) {
-            updateScore(context)
             let world = context.world
             let idProduit = args.id
 
@@ -132,7 +131,9 @@ module.exports = {
                     `Le produit avec l'id ${args.id} n'existe pas`)
             }
             else {
-                produit.timeleft = produit.vitesse
+                if(produit.timeleft===0){
+                produit.timeleft = produit.vitesse}
+                updateScore(context)
                 world.lastupdate = Date.now().toString();
                 saveWorld(context)
                 return produit
@@ -141,7 +142,6 @@ module.exports = {
         }
         ,
         acheterQtProduit(parent, args, context) {
-            updateScore(context)
             let world = context.world
             let idProduit = args.id
             let ajoutQuantite = args.quantite
@@ -165,30 +165,33 @@ module.exports = {
                 palliersNonDebloques.forEach(pa => {
                     appliquerBonus(pa, context)
                 })
-                
+
                 let allUnlocksNonDebloques = world.allunlocks.filter(unlock => unlock.unlocked === false)
-                let minQuantite=produit.quantite
+                let minQuantite = produit.quantite
 
+
+                //à voir avec le prof
                 world.products.forEach(prod => {
-                    if(minQuantite>prod.quantite){
-                        minQuantite=prod.quantite
+                    if (minQuantite > prod.quantite) {
+                        minQuantite = prod.quantite
+                        console.log("min changé pour" + minQuantite)
                     }
-                allUnlocksNonDebloques.forEach(unlock => {
-                    if(minQuantite>unlock.seuil){
-                        console.log("itération")
-                        appliquerBonus(unlock,context)
-                    }
-                })
+                    allUnlocksNonDebloques.forEach(unlock => {
+                        if (minQuantite > unlock.seuil) {
+                            console.log("itération" + minQuantite + unlock.seuil)
+                            appliquerBonus(unlock, context)
+                        }
+                    })
 
-            })
-        }
-                world.lastupdate = Date.now().toString()
-                saveWorld(context)
-                return produit
+                })
             }
+            updateScore(context)
+            world.lastupdate = Date.now().toString()
+            saveWorld(context)
+            return produit
+        }
         ,
         acheterCashUpgrade(parent, args, context) {
-            updateScore(context)
             let world = context.world
             let upgradeName = args.name
 
@@ -201,6 +204,7 @@ module.exports = {
             else {
                 context.world.money -= upgrade.seuil
                 appliquerBonus(upgrade, context)
+                updateScore(context)
                 world.lastupdate = Date.now().toString()
                 saveWorld(context)
                 return upgrade
@@ -208,7 +212,6 @@ module.exports = {
         }
         ,
         acheterAngelUpgrade(parent, args, context) {
-            updateScore(context)
             let world = context.world
             let angelUpgradeName = args.name
 
@@ -221,6 +224,7 @@ module.exports = {
             else {
                 context.world.money -= angelUpgrade.seuil
                 appliquerBonus(angelUpgrade, context)
+                updateScore(context)
                 world.lastupdate = Date.now().toString()
                 saveWorld(context)
                 return angelUpgrade
@@ -228,7 +232,6 @@ module.exports = {
         }
         ,
         engagerManager(parent, args, context) {
-            updateScore(context)
             let world = context.world
             let managerName = args.name
             let manager = context.world.managers.find((m) => m.name === managerName)
@@ -238,6 +241,7 @@ module.exports = {
             context.world.money -= manager.seuil
             produit.managerUnlocked = true;
             manager.unlocked = true;
+            updateScore(context)
             world.lastupdate = Date.now().toString();
             saveWorld(context)
             return manager
@@ -245,24 +249,22 @@ module.exports = {
         ,
         resetWorld(parent, args, context) {
             console.log("coucou")
+            updateScore(context)
             let currentWorld = context.world
-            let score = currentWorld.score
-            let activeangels = currentWorld.activeangels
-            console.log(activeangels)
-            let totalangels = currentWorld.totalangels
+            let storeScore = currentWorld.score
+            let storeActiveAngels = currentWorld.activeangels
+            console.log(storeActiveAngels)
+            let storeTotalAngels = currentWorld.totalangels
 
             newWorld = world
 
-            newWorld.score = score
-            newWorld.activeangels = activeangels
-            newWorld.totalangels = totalangels
+            newWorld.activeangels = storeActiveAngels
+            newWorld.score = storeScore
 
-            newWorld.activeangels += Math.round(150 * Math.sqrt(score / Math.pow(10, 15)) - totalangels)
-            newWorld.totalangels = Math.round(150 * Math.sqrt(score / Math.pow(10, 15)))
-            newWorld.score = 0
-
-
-
+            newWorld.activeangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
+            console.log("ajout anges "+Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels))
+            newWorld.totalangels = Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)))
+            console.log("nouv total anges "+Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels))
 
             newWorld.lastupdate = Date.now().toString();
             context.world = newWorld
