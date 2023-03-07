@@ -1,10 +1,11 @@
 const { angelbonus } = require('./world');
+
 let world = require('./world');
 
 const fs = require('fs').promises;
 
 function saveWorld(context) {
-    fs.writeFile("userworlds/" + context.user + "-world.json",
+    fs.writeFile("../userworlds/" + context.user + "-world.json",
         JSON.stringify(context.world), err => {
             if (err) {
                 console.error(err)
