@@ -1,6 +1,6 @@
 module.exports = {
     "name": "Nom du Monde",
-    "logo": "icones/logomonde.jpg",
+    "logo": "public/icones/worldLogo.png",
     "money": 0,
     "score": 0,
     "totalangels": 0,
