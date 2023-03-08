@@ -1,0 +1,45 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+  .one {
+    grid-column: 1 / 8;
+    grid-row: 1 / 1;
+    background-image: url("../fond_vieux_papier.png");   }
+  .two {
+    grid-column: 1 ;
+    grid-row: 2 / 8;
+    background-image: url("../fond_vieux_papier.png"); 
+}
+  .three {
+    grid-column: 2 / 8;
+    grid-row: 2 / 8;
+    background-image: url("../fondProduit'.png"); 
+  }
+
+.product{
+  position: relative;
+  color: rgb(0, 0, 0);
+}
+
+.buttonbuy{
+  background: none;
+  position: relative;
+  top:20px;
+  right:87px;
+  cursor: pointer;
+
+
+}
+
+.logo{
+  cursor: pointer;
+}
+
+.barstyle{
+position: absolute;
+width: 50px;
+height: 25px;
+}

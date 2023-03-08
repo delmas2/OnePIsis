@@ -7,17 +7,16 @@
 .one {
   grid-column: 1 / 8;
   grid-row: 1 / 1;
-  background-color: rgb(42, 185, 138);
-}
+  background-image: url("../fond_vieux_papier.png"); }
 .two {
   grid-column: 1 ;
   grid-row: 2 / 8;
-  background-color: rgb(206, 176, 250);
+  background-image: url("../fond_vieux_papier.png"); 
 }
 .three {
   grid-column: 2 / 8;
   grid-row: 2 / 8;
-  background-color: rgb(146, 202, 248);
+  background-image: url("../fondProduit'.png"); 
 }
 
 .form{

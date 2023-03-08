@@ -123,8 +123,10 @@ function App() {
     { main}
   </div>
   
-  <div className="two">Menu</div>
-  <div className="three">Trois</div>
+  <div className="two">
+    
+  </div>
+  <div className="three"></div>
 
 </div>
     </div>
