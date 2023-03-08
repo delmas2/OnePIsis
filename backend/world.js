@@ -1,6 +1,6 @@
 module.exports = {
     "name": "Nom du Monde",
-    "logo": "public/icones/worldLogo.png",
+    "logo": "icones/worldLogo.png",
     "money": 0,
     "score": 0,
     "totalangels": 0,
@@ -11,7 +11,7 @@ module.exports = {
         {
             "id": 1,
             "name": "Luffy",
-            "logo": "public/icones/Luffy1.png",
+            "logo": "icones/Luffy1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -22,7 +22,7 @@ module.exports = {
             "palliers": [
                 {
                     "name": "Gear 3",
-                    "logo": "public/icones/Luffy2.png",
+                    "logo": "icones/Luffy2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
