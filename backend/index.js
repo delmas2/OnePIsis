@@ -14,22 +14,14 @@ const server = new ApolloServer({
     })
 });
 
-const [lancerProduction] = useMutation(LANCER_PRODUCTION,
-    { context: { headers: { "x-user": username }},
-    onError: (error): void => {
-        console.error("Error during lancerProduction mutation:", error);
-        // Afficher un message d'erreur à l'utilisateur
-        alert("Une erreur est survenue lors de la production.");
-    }
-    }
-   )
+
 
 
 
    
 async function readUserWorld(user) {
     try {
-        const data = await fs.readFile("userworlds/" + user + "-world.json");
+        const data = await fs.readFile("../userworlds/" + user + "-world.json");
     return JSON.parse(data);
     }
     catch (error) {
