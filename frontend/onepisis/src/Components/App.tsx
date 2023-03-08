@@ -5,7 +5,7 @@ import Main from './Main';
 import './Main.tsx';
 
 const GET_WORLD = gql`
-query ExampleQuery {
+query getWorld {
   getWorld {
     activeangels
     allunlocks {
@@ -47,7 +47,7 @@ query ExampleQuery {
       logo
       managerUnlocked
       name
-      paliers {
+      palliers {
         idcible
         logo
         name

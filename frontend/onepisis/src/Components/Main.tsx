@@ -29,6 +29,15 @@ export default function Main({ loadworld, username }: MainProps) {
     setWorld(JSON.parse(JSON.stringify(loadworld)) as World);
   }, [loadworld]);
 
+
+  /*function onProductionDone(p: Product): void {
+    // calcul de la somme obtenue par la production du produit
+    let gain = p.revenu;
+    // ajout de la somme à l’argent possédé
+    addToScore(gain)
+   }*/
+   
+
   return (
     <div className="main">
       <div className="one">
@@ -51,24 +60,40 @@ export default function Main({ loadworld, username }: MainProps) {
         <button className="investisseur-button">Investisseurs</button>
       </div>
         <div className="prod1">        
-        <ProductComponent product={world.products[0]}/>
+        <ProductComponent produit={world.products[0]} onProductionDone={function (product: Product): void {
+          throw new Error("Function not implemented.");
+        } }/>
         </div>
         <div className="prod2">        
-        <ProductComponent product={world.products[1]}/>
+        <ProductComponent produit={world.products[1]} onProductionDone={function (product: Product): void {
+          throw new Error("Function not implemented.");
+        } }/>
         </div>
         <div className="prod3">        
-        <ProductComponent product={world.products[2]}/>
+        <ProductComponent produit={world.products[2]} onProductionDone={function (product: Product): void {
+          throw new Error("Function not implemented.");
+        } }/>
         </div>
         <div className="prod4">        
-        <ProductComponent product={world.products[3]}/>
+        <ProductComponent produit={world.products[3]} onProductionDone={function (product: Product): void {
+          throw new Error("Function not implemented.");
+        } }/>
         </div>
         <div className="prod5">        
-        <ProductComponent product={world.products[4]}/>
+        <ProductComponent produit={world.products[4]} onProductionDone={function (product: Product): void {
+          throw new Error("Function not implemented.");
+        } }/>
         </div>
         <div className="prod6">        
-        <ProductComponent product={world.products[5]}/>
+        <ProductComponent produit={world.products[5]} onProductionDone={function (product: Product): void {
+          throw new Error("Function not implemented.");
+        } }/>
         </div>
     
     </div>
   );
 }
+function addToScore(gain: Product) {
+  throw new Error("Function not implemented.");
+}
+
