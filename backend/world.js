@@ -21,7 +21,7 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Nom du premier palier",
+                    "name": "Gear 2nd",
                     "logo": "icones/premierpalier.jpg",
                     "seuil": 20,
                     "idcible": 1,
@@ -30,7 +30,7 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Nom deuxième palier",
+                    "name": "Gear 3rd",
                     "logo": "icones/deuxiemepalier.jpg",
                     "seuil": 75,
                     "idcible": 1,
@@ -53,7 +53,7 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Nom du premier palier 2",
+                    "name": "Sandai Kitetsu",
                     "logo": "icones/premierpalier.jpg",
                     "seuil": 20,
                     "idcible": 1,
@@ -62,7 +62,7 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Nom deuxième palier 2",
+                    "name": "Shusui",
                     "logo": "icones/deuxiemepalier.jpg",
                     "seuil": 75,
                     "idcible": 1,
@@ -85,7 +85,7 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Nom du premier palier 3",
+                    "name": "Water Seven",
                     "logo": "icones/premierpalier.jpg",
                     "seuil": 20,
                     "idcible": 1,
@@ -94,7 +94,7 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Nom deuxième palier 3",
+                    "name": "Midori Boshi",
                     "logo": "icones/deuxiemepalier.jpg",
                     "seuil": 75,
                     "idcible": 1,
@@ -117,7 +117,7 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Nom du premier palier 4",
+                    "name": "Jambe du diable",
                     "logo": "icones/premierpalier.jpg",
                     "seuil": 20,
                     "idcible": 1,
@@ -126,7 +126,7 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Nom deuxième palier 4",
+                    "name": "Raid Suit",
                     "logo": "icones/deuxiemepalier.jpg",
                     "seuil": 75,
                     "idcible": 1,
@@ -149,7 +149,7 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Nom du premier palier 5",
+                    "name": "Climat-Tact",
                     "logo": "icones/premierpalier.jpg",
                     "seuil": 20,
                     "idcible": 1,
@@ -158,7 +158,7 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Nom deuxième palier 5",
+                    "name": "Sorcery Climat-Tact",
                     "logo": "icones/deuxiemepalier.jpg",
                     "seuil": 75,
                     "idcible": 1,
@@ -181,7 +181,7 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Nom du premier palier 6",
+                    "name": "Walk Point",
                     "logo": "icones/premierpalier.jpg",
                     "seuil": 20,
                     "idcible": 1,
@@ -190,7 +190,7 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Nom deuxième palier 6",
+                    "name": "Heavy Point",
                     "logo": "icones/deuxiemepalier.jpg",
                     "seuil": 75,
                     "idcible": 1,
@@ -232,7 +232,7 @@ module.exports = {
     ],
     "upgrades": [
         {
-            "name": "Nom du premier upgrade",
+            "name": "Gear 5",
             "logo": "icones/premierupgrade.jpg",
             "seuil": 1e3,
             "idcible": 1,
@@ -240,10 +240,55 @@ module.exports = {
             "typeratio": "gain",
             "unlocked": false
         },
+        {
+            "name": "Enma",
+            "logo": "icones/premierupgrade.jpg",
+            "seuil": 1e4,
+            "idcible": 2,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Sogeking",
+            "logo": "icones/premierupgrade.jpg",
+            "seuil": 1e5,
+            "idcible": 3,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Vinsmoke upgrade",
+            "logo": "icones/premierupgrade.jpg",
+            "seuil": 1e6,
+            "idcible": 4,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Zeus",
+            "logo": "icones/premierupgrade.jpg",
+            "seuil": 1e7,
+            "idcible": 5,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Rumble Ball",
+            "logo": "icones/premierupgrade.jpg",
+            "seuil": 1e8,
+            "idcible": 6,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
     ],
     "angelupgrades": [
         {
-            "name": "Angel Sacrifice",
+            "name": "Vogue Merry",
             "logo": "icones/angel.png",
             "seuil": 10,
             "idcible": 0,
@@ -251,13 +296,85 @@ module.exports = {
             "typeratio": "gain",
             "unlocked": false
         },
+        {
+            "name": "Sunny",
+            "logo": "icones/angel.png",
+            "seuil": 10,
+            "idcible": 0,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Eclypse",
+            "logo": "icones/angel.png",
+            "seuil": 10,
+            "idcible": 0,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Empereur",
+            "logo": "icones/angel.png",
+            "seuil": 10,
+            "idcible": -1,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
     ],
     "managers": [
         {
-            "name": "Wangari Maathai",
+            "name": "Rayleigh",
             "logo": "icones/WangariMaathai.jpg",
             "seuil": 10,
             "idcible": 1,
+            "ratio": 0,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Mihawk",
+            "logo": "icones/WangariMaathai.jpg",
+            "seuil": 1000,
+            "idcible": 2,
+            "ratio": 0,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Yasopp",
+            "logo": "icones/WangariMaathai.jpg",
+            "seuil": 100000,
+            "idcible": 3,
+            "ratio": 0,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Zeff",
+            "logo": "icones/WangariMaathai.jpg",
+            "seuil": 10000000,
+            "idcible": 4,
+            "ratio": 0,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Bell-Mère",
+            "logo": "icones/WangariMaathai.jpg",
+            "seuil": 1000000000,
+            "idcible": 5,
+            "ratio": 0,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Hiluluk & Kureha",
+            "logo": "icones/WangariMaathai.jpg",
+            "seuil": 100000000000,
+            "idcible": 6,
             "ratio": 0,
             "typeratio": "gain",
             "unlocked": false

@@ -15,18 +15,24 @@ function saveWorld(context) {
         })
 }
 
+//Vérifie l'avancement des productions et gère le gain dans le cas d'un produit fini selon le temps écoulé
 function updateScore(context) {
     let world = context.world
     let produits = world.products
     let time = Date.now() - parseInt(world.lastupdate)
     let qte = 0
+
     produits.forEach(produitactuel => {
+
+        //Si le manager est débloqué
         if (produitactuel.managerUnlocked === true) {
+            //Si des productions ont été terminées, on
             if (produitactuel.timeleft < time) {
                 time -= produitactuel.timeleft
                 qte = Math.floor(time / produitactuel.vitesse) + 1;
                 produitactuel.timeleft = produitactuel.vitesse - (time % produitactuel.vitesse)
             }
+            //Si la production est toujours en ocours, on l'actualise
             else {
                 produitactuel.timeleft -= time
                 qte = 0
