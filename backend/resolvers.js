@@ -68,7 +68,7 @@ function appliquerBonus(bonus, context) {
             }
             else {
                 if (bonus.typeratio === "vitesse") {
-                    produit.vitesse = produit.vitesse / bonus.ratio
+                    produit.vitesse = Math.round(produit.vitesse / bonus.ratio)
                 }
                 else if (bonus.typeratio === "gain") {
                     produit.revenu = produit.revenu * bonus.ratio
@@ -113,6 +113,8 @@ module.exports = {
     Query: {
 
         getWorld(parent, args, context, info) {
+            updateScore(context)
+            world.lastupdate = Date.now().toString();
             saveWorld(context)
             return context.world
         }
@@ -156,7 +158,8 @@ module.exports = {
                     `Le produit avec l'id ${args.id} n'existe pas`)
             }
             else {
-                context.world.money -= produit.cout * ((1 - coefficient) / (1 - produit.croissance))
+
+                context.world.money -= produit.cout * (1-coeff)
                 produit.cout = produit.cout * Math.pow(produit.croissance, ajoutQuantite)
                 produit.quantite += ajoutQuantite
 
@@ -170,20 +173,18 @@ module.exports = {
                 let minQuantite = produit.quantite
 
 
-                //à voir avec le prof
                 world.products.forEach(prod => {
                     if (minQuantite > prod.quantite) {
                         minQuantite = prod.quantite
-                        console.log("min changé pour" + minQuantite)
+                    }})
+                    console.log("min changé pour" + minQuantite +" coucou")
+                allUnlocksNonDebloques.forEach(unlock => {
+                    if (minQuantite > unlock.seuil) {
+                        console.log("itération" + minQuantite + unlock.seuil)
+                        appliquerBonus(unlock, context)
                     }
-                    allUnlocksNonDebloques.forEach(unlock => {
-                        if (minQuantite > unlock.seuil) {
-                            console.log("itération" + minQuantite + unlock.seuil)
-                            appliquerBonus(unlock, context)
-                        }
-                    })
-
                 })
+
             }
             updateScore(context)
             world.lastupdate = Date.now().toString()
@@ -222,7 +223,7 @@ module.exports = {
                     `L'angelUpgrade de nom: ${args.name} n'existe pas`)
             }
             else {
-                context.world.money -= angelUpgrade.seuil
+                context.world.activeangels -= angelUpgrade.seuil
                 appliquerBonus(angelUpgrade, context)
                 updateScore(context)
                 world.lastupdate = Date.now().toString()
@@ -253,18 +254,19 @@ module.exports = {
             let currentWorld = context.world
             let storeScore = currentWorld.score
             let storeActiveAngels = currentWorld.activeangels
-            console.log(storeActiveAngels)
             let storeTotalAngels = currentWorld.totalangels
 
-            newWorld = world
+            let newWorld = world
+
 
             newWorld.activeangels = storeActiveAngels
-            newWorld.score = storeScore
+            newWorld.totalangels = storeTotalAngels
 
+            let ajoutAnges=Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
+            if(ajoutAnges>0){
             newWorld.activeangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
-            console.log("ajout anges "+Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels))
-            newWorld.totalangels = Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)))
-            console.log("nouv total anges "+Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels))
+            newWorld.totalangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)))
+            }
 
             newWorld.lastupdate = Date.now().toString();
             context.world = newWorld

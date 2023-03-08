@@ -10,7 +10,7 @@ module.exports = {
     "products": [
         {
             "id": 1,
-            "name": "premier produit",
+            "name": "Luffy",
             "logo": "icones/premierproduit.jpg",
             "cout": 4,
             "croissance": 1.07,
@@ -42,7 +42,7 @@ module.exports = {
         },
         {
             "id": 2,
-            "name": "Deuxième produit",
+            "name": "Zoro",
             "logo": "icones/deuxiemeproduit.jpg",
             "cout": 4,
             "croissance": 1.07,
@@ -74,7 +74,7 @@ module.exports = {
         },
         {
             "id": 3,
-            "name": "Troisième produit",
+            "name": "Usopp",
             "logo": "icones/deuxiemeproduit.jpg",
             "cout": 4,
             "croissance": 1.07,
@@ -106,7 +106,7 @@ module.exports = {
         } ,
         {
             "id": 4,
-            "name": "Quatrième produit",
+            "name": "Sanji",
             "logo": "icones/deuxiemeproduit.jpg",
             "cout": 4,
             "croissance": 1.07,
@@ -138,7 +138,7 @@ module.exports = {
         }, 
         {
             "id": 5,
-            "name": "Cinquième produit",
+            "name": "Nami",
             "logo": "icones/deuxiemeproduit.jpg",
             "cout": 4,
             "croissance": 1.07,
@@ -167,13 +167,63 @@ module.exports = {
                     "unlocked": false
                 },
             ]
+        },
+        {
+            "id": 6,
+            "name": "Chopper",
+            "logo": "icones/deuxiemeproduit.jpg",
+            "cout": 4,
+            "croissance": 1.07,
+            "revenu": 1,
+            "vitesse": 500,
+            "quantite": 1,
+            "timeleft": 0,
+            "managerUnlocked": false,
+            "palliers": [
+                {
+                    "name": "Nom du premier palier 6",
+                    "logo": "icones/premierpalier.jpg",
+                    "seuil": 20,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+                {
+                    "name": "Nom deuxième palier 6",
+                    "logo": "icones/deuxiemepalier.jpg",
+                    "seuil": 75,
+                    "idcible": 1,
+                    "ratio": 2,
+                    "typeratio": "vitesse",
+                    "unlocked": false
+                },
+            ]
         } 
     ],
     "allunlocks": [
         {
-            "name": "Nom du premier unlock général",
+            "name": "East Blue",
             "logo": "icones/premierunlock.jpg",
             "seuil": 30,
+            "idcible": 0,
+            "ratio": 2,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Alabasta",
+            "logo": "icones/premierunlock.jpg",
+            "seuil": 60,
+            "idcible": 0,
+            "ratio": 2,
+            "typeratio": "vitesse",
+            "unlocked": false
+        },
+        {
+            "name": "Skypiea",
+            "logo": "icones/premierunlock.jpg",
+            "seuil": 90,
             "idcible": 0,
             "ratio": 2,
             "typeratio": "gain",
