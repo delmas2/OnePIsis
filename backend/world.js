@@ -171,7 +171,7 @@ module.exports = {
         {
             "id": 6,
             "name": "Chopper",
-            "logo": "icones/deuxiemeproduit.jpg",
+            "logo": "public/icones/Chopper1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -182,7 +182,7 @@ module.exports = {
             "palliers": [
                 {
                     "name": "Walk Point",
-                    "logo": "icones/premierpalier.jpg",
+                    "logo": "public/icones/Chopper2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
@@ -191,7 +191,7 @@ module.exports = {
                 },
                 {
                     "name": "Heavy Point",
-                    "logo": "icones/deuxiemepalier.jpg",
+                    "logo": "public/icones/Chopper3.png",
                     "seuil": 75,
                     "idcible": 1,
                     "ratio": 2,
@@ -204,7 +204,7 @@ module.exports = {
     "allunlocks": [
         {
             "name": "Vogue Merry",
-            "logo": "icones/premierunlock.jpg",
+            "logo": "public/icones/VogueMerry.png",
             "seuil": 30,
             "idcible": 0,
             "ratio": 2,
@@ -213,7 +213,7 @@ module.exports = {
         },
         {
             "name": "Sunny",
-            "logo": "icones/premierunlock.jpg",
+            "logo": "public/icones/Sunny.png",
             "seuil": 60,
             "idcible": 0,
             "ratio": 2,
@@ -224,7 +224,7 @@ module.exports = {
     "upgrades": [
         {
             "name": "Gear 5",
-            "logo": "icones/premierupgrade.jpg",
+            "logo": "public/icones/UpgradeLuffy.png",
             "seuil": 1e3,
             "idcible": 1,
             "ratio": 3,
@@ -233,7 +233,7 @@ module.exports = {
         },
         {
             "name": "Enma",
-            "logo": "icones/premierupgrade.jpg",
+            "logo": "public/icones/UpgradeZoro.png",
             "seuil": 1e4,
             "idcible": 2,
             "ratio": 3,
@@ -242,7 +242,7 @@ module.exports = {
         },
         {
             "name": "Sogeking",
-            "logo": "icones/premierupgrade.jpg",
+            "logo": "public/icones/UpgradeUsopp.png",
             "seuil": 1e5,
             "idcible": 3,
             "ratio": 3,
@@ -251,7 +251,7 @@ module.exports = {
         },
         {
             "name": "Vinsmoke upgrade",
-            "logo": "icones/premierupgrade.jpg",
+            "logo": "public/icones/UpgradeSanji.png",
             "seuil": 1e6,
             "idcible": 4,
             "ratio": 3,
@@ -260,7 +260,7 @@ module.exports = {
         },
         {
             "name": "Zeus",
-            "logo": "icones/premierupgrade.jpg",
+            "logo": "public/icones/UpgradeNami.png",
             "seuil": 1e7,
             "idcible": 5,
             "ratio": 3,
@@ -269,7 +269,7 @@ module.exports = {
         },
         {
             "name": "Rumble Ball",
-            "logo": "icones/premierupgrade.jpg",
+            "logo": "public/icones/UpgradeChopper.png",
             "seuil": 1e8,
             "idcible": 6,
             "ratio": 3,
@@ -280,7 +280,7 @@ module.exports = {
     "angelupgrades": [
         {
             "name": "Robin",
-            "logo": "icones/angel.png",
+            "logo": "public/icones/AngelRobin.png",
             "seuil": 10,
             "idcible": 0,
             "ratio": 3,
@@ -289,7 +289,7 @@ module.exports = {
         },
         {
             "name": "Franky",
-            "logo": "icones/angel.png",
+            "logo": "public/icones/AngelFranky.png",
             "seuil": 10,
             "idcible": 0,
             "ratio": 3,
@@ -298,7 +298,7 @@ module.exports = {
         },
         {
             "name": "Brook",
-            "logo": "icones/angel.png",
+            "logo": "public/icones/AngelBrook.png",
             "seuil": 10,
             "idcible": 0,
             "ratio": 3,
@@ -307,7 +307,7 @@ module.exports = {
         },
         {
             "name": "Jinbei",
-            "logo": "icones/angel.png",
+            "logo": "public/icones/AngelJimbei.png",
             "seuil": 10,
             "idcible": -1,
             "ratio": 3,
@@ -318,7 +318,7 @@ module.exports = {
     "managers": [
         {
             "name": "Rayleigh",
-            "logo": "icones/WangariMaathai.jpg",
+            "logo": "public/icones/Rayleigh.png",
             "seuil": 10,
             "idcible": 1,
             "ratio": 0,
@@ -327,7 +327,7 @@ module.exports = {
         },
         {
             "name": "Mihawk",
-            "logo": "icones/WangariMaathai.jpg",
+            "logo": "public/icones/Mihawk.png",
             "seuil": 1000,
             "idcible": 2,
             "ratio": 0,
@@ -336,7 +336,7 @@ module.exports = {
         },
         {
             "name": "Yasopp",
-            "logo": "icones/WangariMaathai.jpg",
+            "logo": "public/icones/Yasopp.png",
             "seuil": 100000,
             "idcible": 3,
             "ratio": 0,
@@ -345,7 +345,7 @@ module.exports = {
         },
         {
             "name": "Zeff",
-            "logo": "icones/WangariMaathai.jpg",
+            "logo": "public/icones/Zeff.png",
             "seuil": 10000000,
             "idcible": 4,
             "ratio": 0,
@@ -354,7 +354,7 @@ module.exports = {
         },
         {
             "name": "Bell-Mère",
-            "logo": "icones/WangariMaathai.jpg",
+            "logo": "public/icones/Bell-mere.png",
             "seuil": 1000000000,
             "idcible": 5,
             "ratio": 0,
@@ -363,7 +363,7 @@ module.exports = {
         },
         {
             "name": "Hiluluk & Kureha",
-            "logo": "icones/WangariMaathai.jpg",
+            "logo": "public/icones/Hiluluk_Kureha.png",
             "seuil": 100000000000,
             "idcible": 6,
             "ratio": 0,
