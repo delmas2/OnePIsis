@@ -11,7 +11,7 @@ module.exports = {
         {
             "id": 1,
             "name": "Luffy",
-            "logo": "icones/premierproduit.jpg",
+            "logo": "public/icones/Luffy1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -21,8 +21,8 @@ module.exports = {
             "managerUnlocked": false,
             "palliers": [
                 {
-                    "name": "Gear 2nd",
-                    "logo": "icones/premierpalier.jpg",
+                    "name": "Gear 3",
+                    "logo": "public/icones/Luffy2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
@@ -30,8 +30,8 @@ module.exports = {
                     "unlocked": false
                 },
                 {
-                    "name": "Gear 3rd",
-                    "logo": "icones/deuxiemepalier.jpg",
+                    "name": "Gear 5",
+                    "logo": "public/icones/Luffy3.png",
                     "seuil": 75,
                     "idcible": 1,
                     "ratio": 2,
@@ -43,7 +43,7 @@ module.exports = {
         {
             "id": 2,
             "name": "Zoro",
-            "logo": "icones/deuxiemeproduit.jpg",
+            "logo": "public/icones/Zoro1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -54,7 +54,7 @@ module.exports = {
             "palliers": [
                 {
                     "name": "Sandai Kitetsu",
-                    "logo": "icones/premierpalier.jpg",
+                    "logo": "public/icones/Zoro2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
@@ -63,7 +63,7 @@ module.exports = {
                 },
                 {
                     "name": "Shusui",
-                    "logo": "icones/deuxiemepalier.jpg",
+                    "logo": "public/icones/Zoro3.png",
                     "seuil": 75,
                     "idcible": 1,
                     "ratio": 2,
@@ -75,7 +75,7 @@ module.exports = {
         {
             "id": 3,
             "name": "Usopp",
-            "logo": "icones/deuxiemeproduit.jpg",
+            "logo": "public/icones/Usopp1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -86,7 +86,7 @@ module.exports = {
             "palliers": [
                 {
                     "name": "Water Seven",
-                    "logo": "icones/premierpalier.jpg",
+                    "logo": "public/icones/Usopp2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
@@ -95,7 +95,7 @@ module.exports = {
                 },
                 {
                     "name": "Midori Boshi",
-                    "logo": "icones/deuxiemepalier.jpg",
+                    "logo": "public/icones/Usopp3.png",
                     "seuil": 75,
                     "idcible": 1,
                     "ratio": 2,
@@ -107,7 +107,7 @@ module.exports = {
         {
             "id": 4,
             "name": "Sanji",
-            "logo": "icones/deuxiemeproduit.jpg",
+            "logo": "public/icones/Sanji1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -118,7 +118,7 @@ module.exports = {
             "palliers": [
                 {
                     "name": "Jambe du diable",
-                    "logo": "icones/premierpalier.jpg",
+                    "logo": "public/icones/Sanji2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
@@ -127,7 +127,7 @@ module.exports = {
                 },
                 {
                     "name": "Raid Suit",
-                    "logo": "icones/deuxiemepalier.jpg",
+                    "logo": "public/icones/Sanji3.png",
                     "seuil": 75,
                     "idcible": 1,
                     "ratio": 2,
@@ -139,7 +139,7 @@ module.exports = {
         {
             "id": 5,
             "name": "Nami",
-            "logo": "icones/deuxiemeproduit.jpg",
+            "logo": "public/icones/Nami1.png",
             "cout": 4,
             "croissance": 1.07,
             "revenu": 1,
@@ -150,7 +150,7 @@ module.exports = {
             "palliers": [
                 {
                     "name": "Climat-Tact",
-                    "logo": "icones/premierpalier.jpg",
+                    "logo": "public/icones/Nami2.png",
                     "seuil": 20,
                     "idcible": 1,
                     "ratio": 2,
@@ -159,7 +159,7 @@ module.exports = {
                 },
                 {
                     "name": "Sorcery Climat-Tact",
-                    "logo": "icones/deuxiemepalier.jpg",
+                    "logo": "public/icones/Nami3.png",
                     "seuil": 75,
                     "idcible": 1,
                     "ratio": 2,
@@ -203,7 +203,7 @@ module.exports = {
     ],
     "allunlocks": [
         {
-            "name": "East Blue",
+            "name": "Vogue Merry",
             "logo": "icones/premierunlock.jpg",
             "seuil": 30,
             "idcible": 0,
@@ -212,21 +212,12 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Alabasta",
+            "name": "Sunny",
             "logo": "icones/premierunlock.jpg",
             "seuil": 60,
             "idcible": 0,
             "ratio": 2,
             "typeratio": "vitesse",
-            "unlocked": false
-        },
-        {
-            "name": "Skypiea",
-            "logo": "icones/premierunlock.jpg",
-            "seuil": 90,
-            "idcible": 0,
-            "ratio": 2,
-            "typeratio": "gain",
             "unlocked": false
         },
     ],
@@ -288,7 +279,7 @@ module.exports = {
     ],
     "angelupgrades": [
         {
-            "name": "Vogue Merry",
+            "name": "Robin",
             "logo": "icones/angel.png",
             "seuil": 10,
             "idcible": 0,
@@ -297,7 +288,7 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Sunny",
+            "name": "Franky",
             "logo": "icones/angel.png",
             "seuil": 10,
             "idcible": 0,
@@ -306,7 +297,7 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Eclypse",
+            "name": "Brook",
             "logo": "icones/angel.png",
             "seuil": 10,
             "idcible": 0,
@@ -315,7 +306,7 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Empereur",
+            "name": "Jinbei",
             "logo": "icones/angel.png",
             "seuil": 10,
             "idcible": -1,
