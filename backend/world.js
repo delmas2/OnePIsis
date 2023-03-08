@@ -1,5 +1,5 @@
 module.exports = {
-    "name": "Nom du Monde",
+    "name": "Nakama",
     "logo": "icones/worldLogo.png",
     "money": 0,
     "score": 0,

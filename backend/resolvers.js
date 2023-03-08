@@ -74,9 +74,8 @@ function appliquerBonus(bonus, context) {
         //Si le bonus s'applique à 1 produit en particulier :
         if (bonus.idcible != 0 && bonus.idcible != (-1)) {
 
-            //On récupère le produit en question et on lui applique le bonus selon son typeratio
             let produit = world.products.find((prod) => prod.id === bonus.idcible)
-            //Si le produit est introuvable, on affiche une erreur
+
             if (produit === undefined) {
                 throw new Error(
                     `Le produit avec l'id ${args.id} n'existe pas`)
@@ -142,17 +141,16 @@ module.exports = {
             let world = context.world
             let idProduit = args.id
 
-            //On récupère le produit en question voulu
             let produit = world.products.find((p) => p.id === idProduit)
-            //Si le produit est introuvable, on affiche une erreur
             if (produit === undefined) {
                 throw new Error(
                     `Le produit avec l'id ${args.id} n'existe pas`)
             }
             else {
                 //Si le produit nétait pas déjà en production on la lance et on actualise le monde
-                if(produit.timeleft===0){
-                produit.timeleft = produit.vitesse}
+                if (produit.timeleft === 0) {
+                    produit.timeleft = produit.vitesse
+                }
                 updateScore(context)
                 world.lastupdate = Date.now().toString();
                 saveWorld(context)
@@ -171,32 +169,37 @@ module.exports = {
 
             let coefficient = Math.pow(produit.croissance, produit.quantite)
 
-
             if (produit === undefined) {
                 throw new Error(
                     `Le produit avec l'id ${args.id} n'existe pas`)
             }
             else {
-
-                context.world.money -= produit.cout * (1-coefficient)/(1-produit.croissance)
+                //On paye l'achat et actualise le coût et la quantité du produit
+                context.world.money -= produit.cout * (1 - coefficient) / (1 - produit.croissance)
                 produit.cout = produit.cout * Math.pow(produit.croissance, ajoutQuantite)
                 produit.quantite += ajoutQuantite
 
+                //On sélectionne tous les paliers qui ne sont pas encore débloqués et qui doivent le devenir
                 let palliersNonDebloques = produit.palliers.filter(pr => pr.unlocked === false && pr.seuil < produit.quantite)
 
+                //On parcours les palliers filtrés et on les débloque
                 palliersNonDebloques.forEach(pa => {
                     appliquerBonus(pa, context)
                 })
 
+                //On filtre les allunlocks non débloqués
                 let allUnlocksNonDebloques = world.allunlocks.filter(unlock => unlock.unlocked === false)
                 let minQuantite = produit.quantite
 
-
+                //On stock dans la variable minQuantite la plus petite quantité parmis tous les produits
                 world.products.forEach(prod => {
                     if (minQuantite > prod.quantite) {
                         minQuantite = prod.quantite
-                    }})
-                    console.log("min changé pour" + minQuantite +" coucou")
+                    }
+                })
+                console.log("min changé pour" + minQuantite + " coucou")
+
+                //Pour chaque allunlock, si le seuil est plus petit que minQuantite, il est débloqué
                 allUnlocksNonDebloques.forEach(unlock => {
                     if (minQuantite > unlock.seuil) {
                         console.log("itération" + minQuantite + unlock.seuil)
@@ -211,6 +214,7 @@ module.exports = {
             return produit
         }
         ,
+        //Permet d'acheter des upgrades avec de l'argent
         acheterCashUpgrade(parent, args, context) {
             let world = context.world
             let upgradeName = args.name
@@ -222,6 +226,7 @@ module.exports = {
                     `L'upgrade de nom: ${args.name} n'existe pas`)
             }
             else {
+                //On paye l'upgrade et on applique son bonus
                 context.world.money -= upgrade.seuil
                 appliquerBonus(upgrade, context)
                 updateScore(context)
@@ -231,6 +236,7 @@ module.exports = {
             }
         }
         ,
+        //Permet d'acheter des upgrades avec des anges
         acheterAngelUpgrade(parent, args, context) {
             let world = context.world
             let angelUpgradeName = args.name
@@ -242,6 +248,7 @@ module.exports = {
                     `L'angelUpgrade de nom: ${args.name} n'existe pas`)
             }
             else {
+                //On paye l'upgrade et on applique son bonus 
                 context.world.activeangels -= angelUpgrade.seuil
                 appliquerBonus(angelUpgrade, context)
                 updateScore(context)
@@ -251,42 +258,59 @@ module.exports = {
             }
         }
         ,
+        //Permet d'engager un manager
         engagerManager(parent, args, context) {
             let world = context.world
+            //On récupère le manager et le produit qui lui est associé
             let managerName = args.name
             let manager = context.world.managers.find((m) => m.name === managerName)
-            let managerProduct = manager.idcible
-            let produit = world.products.find((p) => p.id === managerProduct)
-
-            context.world.money -= manager.seuil
-            produit.managerUnlocked = true;
-            manager.unlocked = true;
-            updateScore(context)
-            world.lastupdate = Date.now().toString();
-            saveWorld(context)
-            return manager
+            if (manager === undefined) {
+                throw new Error(
+                    `Le manager de nom: ${args.name} n'existe pas`)
+            }
+            else {
+                let managerProduct = manager.idcible
+                let produit = world.products.find((p) => p.id === managerProduct)
+                if (produit === undefined) {
+                    throw new Error(
+                        `Le produit avec l'id ${args.managerProduct} n'existe pas`)
+                }
+                else {
+                    //On paye le manzger et on le débloque au niveau produit et manager
+                    context.world.money -= manager.seuil
+                    produit.managerUnlocked = true;
+                    manager.unlocked = true;
+                    updateScore(context)
+                    world.lastupdate = Date.now().toString();
+                    saveWorld(context)
+                    return manager
+                }
+            }
         }
         ,
+        //Permer de réinitialiser le monde et d'ajouter des anges
         resetWorld(parent, args, context) {
-            console.log("coucou")
             updateScore(context)
             let currentWorld = context.world
+            //On stock le score et les anges
             let storeScore = currentWorld.score
             let storeActiveAngels = currentWorld.activeangels
             let storeTotalAngels = currentWorld.totalangels
 
             let newWorld = world
 
-
+            //On remet les anges et on calcule le nombre d'anges à ajouter
             newWorld.activeangels = storeActiveAngels
             newWorld.totalangels = storeTotalAngels
 
-            let ajoutAnges=Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
-            if(ajoutAnges>0){
-            newWorld.activeangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
-            newWorld.totalangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)))
+            let ajoutAnges = Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
+            //Si il y a des anges à ajouter, on les ajoute, sinon on ne fait rien
+            if (ajoutAnges > 0) {
+                newWorld.activeangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)) - storeTotalAngels)
+                newWorld.totalangels += Math.round(150 * Math.sqrt(storeScore / Math.pow(10, 15)))
             }
 
+            //Le nouveau monde devient le monde actuel
             newWorld.lastupdate = Date.now().toString();
             context.world = newWorld
             saveWorld(context)
@@ -295,6 +319,4 @@ module.exports = {
 
 
     }
-
-
 };
