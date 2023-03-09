@@ -79,7 +79,7 @@ query getWorld {
 
 function App() {
   
-  const [username, setUsername] = useState(localStorage.getItem('username') || `Captain${Math.floor(Math.random() * 10000)}`);
+  const [username, setUsername] = useState(localStorage.getItem('username') || `Nakama${Math.floor(Math.random() * 10000)}`);
   const onUserNameChanged = (event: React.FormEvent<HTMLInputElement>) => {
       const username = event.currentTarget.value;
       setUsername(username);

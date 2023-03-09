@@ -1,5 +1,5 @@
 module.exports = {
-    "name": "Nakama",
+    "name": "OnePisis",
     "logo": "icones/worldLogo.png",
     "money": 0,
     "score": 0,
@@ -48,7 +48,7 @@ module.exports = {
             "croissance": 1.07,
             "revenu": 10,
             "vitesse": 500,
-            "quantite": 1,
+            "quantite": 0,
             "timeleft": 0,
             "managerUnlocked": false,
             "palliers": [
@@ -80,7 +80,7 @@ module.exports = {
             "croissance": 1.07,
             "revenu": 100,
             "vitesse": 500,
-            "quantite": 1,
+            "quantite": 0,
             "timeleft": 0,
             "managerUnlocked": false,
             "palliers": [
@@ -112,7 +112,7 @@ module.exports = {
             "croissance": 1.07,
             "revenu": 1000,
             "vitesse": 500,
-            "quantite": 1,
+            "quantite": 0,
             "timeleft": 0,
             "managerUnlocked": false,
             "palliers": [
@@ -144,7 +144,7 @@ module.exports = {
             "croissance": 1.07,
             "revenu": 10000,
             "vitesse": 500,
-            "quantite": 1,
+            "quantite": 0,
             "timeleft": 0,
             "managerUnlocked": false,
             "palliers": [
@@ -176,7 +176,7 @@ module.exports = {
             "croissance": 1.07,
             "revenu": 100000,
             "vitesse": 500,
-            "quantite": 1,
+            "quantite": 0,
             "timeleft": 0,
             "managerUnlocked": false,
             "palliers": [

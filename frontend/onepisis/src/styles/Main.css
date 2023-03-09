@@ -88,7 +88,7 @@
   text-align: center;
   width: 150px;
   height: 50px;
-  top: 360px;
+  top: 265px;
   left: 28px;
   background-image: url(../fondButton.png);
   color: black;
@@ -221,4 +221,37 @@
   top: 400px;
   left: 1000px;
 
+}
+
+
+
+.Qtmulti {
+  position: relative;
+  left: 900px;
+  top: -10px;
+  background-color: #ffffff;
+  border: none;
+  color: rgb(31, 28, 28);
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.Qtmulti:hover {
+  background-color: #ffffff;
+}
+
+.Qtmulti:active {
+  background-color: #ffffff;
+}
+
+.zzzz{
+  position: relative;
+  z-index: 3;
 }

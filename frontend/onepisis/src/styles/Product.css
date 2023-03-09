@@ -19,18 +19,18 @@
     background-image: url("../fondProduit'.png"); 
   }
 
-.product{
+.product-container{
   position: relative;
   color: rgb(0, 0, 0);
+  left: -100px;
 }
 
 .buttonbuy{
   background: none;
   position: relative;
   top:20px;
-  right:87px;
+  right:0px;
   cursor: pointer;
-
 
 }
 
@@ -38,8 +38,76 @@
   cursor: pointer;
 }
 
-.barstyle{
-position: absolute;
-width: 50px;
-height: 25px;
+
+
+
+.product-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.barre-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+}
+
+.image {
+  cursor: pointer;
+  position: absolute;
+  top: 5;
+  left: 0;
+  z-index: 1;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.revenu {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.quantite {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.buttonbuy {
+  background-color: #114BAA;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.cout {
+  font-size: 14px;
+}
+.time-left {
+  font-size: 14px;
+  margin-left: -30px;
+
+}
+
+.barstyle {
+  z-index: 0;
+  top: 16px;
+left: 0px;
+width: 100px;
+height: 170px;
 }
