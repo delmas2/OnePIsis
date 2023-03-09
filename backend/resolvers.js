@@ -185,6 +185,7 @@ module.exports = {
                 //On parcours les palliers filtrés et on les débloque
                 palliersNonDebloques.forEach(pa => {
                     appliquerBonus(pa, context)
+                    //On change l'image du produit en fonction du palier (progression)
                     produit.logo=pa.logo
                 })
 
