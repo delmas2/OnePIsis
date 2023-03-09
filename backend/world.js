@@ -44,9 +44,9 @@ module.exports = {
             "id": 2,
             "name": "Zoro",
             "logo": "icones/Zoro1.png",
-            "cout": 4,
+            "cout": 40,
             "croissance": 1.07,
-            "revenu": 1,
+            "revenu": 10,
             "vitesse": 500,
             "quantite": 1,
             "timeleft": 0,
@@ -76,9 +76,9 @@ module.exports = {
             "id": 3,
             "name": "Usopp",
             "logo": "icones/Usopp1.png",
-            "cout": 4,
+            "cout": 400,
             "croissance": 1.07,
-            "revenu": 1,
+            "revenu": 100,
             "vitesse": 500,
             "quantite": 1,
             "timeleft": 0,
@@ -108,9 +108,9 @@ module.exports = {
             "id": 4,
             "name": "Sanji",
             "logo": "icones/Sanji1.png",
-            "cout": 4,
+            "cout": 4000,
             "croissance": 1.07,
-            "revenu": 1,
+            "revenu": 1000,
             "vitesse": 500,
             "quantite": 1,
             "timeleft": 0,
@@ -140,9 +140,9 @@ module.exports = {
             "id": 5,
             "name": "Nami",
             "logo": "icones/Nami1.png",
-            "cout": 4,
+            "cout": 40000,
             "croissance": 1.07,
-            "revenu": 1,
+            "revenu": 10000,
             "vitesse": 500,
             "quantite": 1,
             "timeleft": 0,
@@ -172,9 +172,9 @@ module.exports = {
             "id": 6,
             "name": "Chopper",
             "logo": "icones/Chopper1.png",
-            "cout": 4,
+            "cout": 400000,
             "croissance": 1.07,
-            "revenu": 1,
+            "revenu": 100000,
             "vitesse": 500,
             "quantite": 1,
             "timeleft": 0,
@@ -232,7 +232,7 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Enma",
+            "name": "Lames noires",
             "logo": "icones/UpgradeZoro.png",
             "seuil": 1e4,
             "idcible": 2,
@@ -250,7 +250,7 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Vinsmoke upgrade",
+            "name": "Jambe du diable",
             "logo": "icones/UpgradeSanji.png",
             "seuil": 1e6,
             "idcible": 4,
@@ -259,7 +259,7 @@ module.exports = {
             "unlocked": false
         },
         {
-            "name": "Zeus",
+            "name": "Climat tact",
             "logo": "icones/UpgradeNami.png",
             "seuil": 1e7,
             "idcible": 5,
@@ -272,6 +272,78 @@ module.exports = {
             "logo": "icones/UpgradeChopper.png",
             "seuil": 1e8,
             "idcible": 6,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Génération Terrible",
+            "logo": "icones/UpgradeEquipage.png",
+            "seuil": 1e9,
+            "idcible": 0,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Gear 4",
+            "logo": "icones/UpgradeLuffy2.png",
+            "seuil": 1e10,
+            "idcible": 1,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Enma",
+            "logo": "icones/UpgradeZoro2.png",
+            "seuil": 1e11,
+            "idcible": 2,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Pop Green",
+            "logo": "icones/UpgradeUsopp2.png",
+            "seuil": 1e12,
+            "idcible": 3,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Vinsmoke upgrade",
+            "logo": "icones/UpgradeSanji2.png",
+            "seuil": 1e13,
+            "idcible": 4,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Zeus",
+            "logo": "icones/UpgradeNami2.png",
+            "seuil": 1e14,
+            "idcible": 5,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Brachio Tank V",
+            "logo": "icones/UpgradeChopper2.png",
+            "seuil": 1e15,
+            "idcible": 6,
+            "ratio": 3,
+            "typeratio": "gain",
+            "unlocked": false
+        },
+        {
+            "name": "Cinquième Empereur",
+            "logo": "icones/UpgradeEquipage.png",
+            "seuil": 1e16,
+            "idcible": 0,
             "ratio": 3,
             "typeratio": "gain",
             "unlocked": false
@@ -328,7 +400,7 @@ module.exports = {
         {
             "name": "Mihawk",
             "logo": "icones/Mihawk.png",
-            "seuil": 1000,
+            "seuil": 100,
             "idcible": 2,
             "ratio": 0,
             "typeratio": "gain",
@@ -337,7 +409,7 @@ module.exports = {
         {
             "name": "Yasopp",
             "logo": "icones/Yasopp.png",
-            "seuil": 100000,
+            "seuil": 1000,
             "idcible": 3,
             "ratio": 0,
             "typeratio": "gain",
@@ -346,7 +418,7 @@ module.exports = {
         {
             "name": "Zeff",
             "logo": "icones/Zeff.png",
-            "seuil": 10000000,
+            "seuil": 10000,
             "idcible": 4,
             "ratio": 0,
             "typeratio": "gain",
@@ -355,7 +427,7 @@ module.exports = {
         {
             "name": "Bell-Mère",
             "logo": "icones/Bell-mere.png",
-            "seuil": 1000000000,
+            "seuil": 100000,
             "idcible": 5,
             "ratio": 0,
             "typeratio": "gain",
@@ -364,7 +436,7 @@ module.exports = {
         {
             "name": "Hiluluk & Kureha",
             "logo": "icones/Hiluluk_Kureha.png",
-            "seuil": 100000000000,
+            "seuil": 1000000,
             "idcible": 6,
             "ratio": 0,
             "typeratio": "gain",
