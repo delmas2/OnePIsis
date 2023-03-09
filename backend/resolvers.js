@@ -185,6 +185,7 @@ module.exports = {
                 //On parcours les palliers filtrés et on les débloque
                 palliersNonDebloques.forEach(pa => {
                     appliquerBonus(pa, context)
+                    produit.logo=pa.logo
                 })
 
                 //On filtre les allunlocks non débloqués

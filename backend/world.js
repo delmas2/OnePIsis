@@ -223,7 +223,7 @@ module.exports = {
     ],
     "upgrades": [
         {
-            "name": "Gear 5",
+            "name": "Gear 2",
             "logo": "icones/UpgradeLuffy.png",
             "seuil": 1e3,
             "idcible": 1,
