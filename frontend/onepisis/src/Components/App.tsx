@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useApolloClient } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import '../styles/App.css';
 import Main from './Main';
@@ -79,28 +79,24 @@ query getWorld {
 
 function App() {
   
-  const [username, setUsername] = useState("");
-  function onUserNameChanged(event: React.FormEvent<HTMLInputElement>) {
-    setUsername(event.currentTarget.value);
-    localStorage.setItem('username', event.currentTarget.value);
+  const [username, setUsername] = useState(localStorage.getItem('username') || `Captain${Math.floor(Math.random() * 10000)}`);
+  const onUserNameChanged = (event: React.FormEvent<HTMLInputElement>) => {
+      const username = event.currentTarget.value;
+      setUsername(username);
+      localStorage.setItem('username', username);
+      // Force Apollo client de refetch le query avec le nveau username
+      client.resetStore();
   };
-
-  useEffect(() => {
-    let storedUsername = localStorage.getItem('username');
-    if (storedUsername) {}
-    else{
-    storedUsername = "Nakama" +  Math.floor(Math.random() * 10000)
-    localStorage.setItem('username', storedUsername);
-    }
-    setUsername(storedUsername);
     
-  }, []);
+  
 
-    
+  const client = useApolloClient();
+  const { loading, error, data } = useQuery(GET_WORLD, {
+      context: { headers: { 'x-user': username } },
+  });
 
-  const {loading, error, data, refetch } = useQuery(GET_WORLD, {
-    context: { headers: { "x-user": username } }
-   });
+
+  
    let main = undefined
    let corps = undefined
    if (loading) corps = <div> Loading... </div>
