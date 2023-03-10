@@ -1,0 +1,103 @@
+
+/* Styles pour la fenêtre modale */
+.modal {
+  display: none; /* Par défaut, la fenêtre modale n'est pas affichée */
+  position: fixed; /* Positionnement fixe pour qu'elle reste en haut de l'écran */
+  z-index: 1; /* Assure que la fenêtre modale soit au-dessus de tout le reste */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Permet de faire défiler la fenêtre modale si son contenu est plus grand que l'écran */
+  background-color: rgba(0,0,0,0.4); /* Fond gris foncé semi-transparent pour mettre en évidence la fenêtre modale */
+}
+
+/* Styles pour la fenêtre modale ouverte */
+.modal.open {
+  display: block; /* Affiche la fenêtre modale */
+}
+
+/* Styles pour le contenu de la fenêtre modale */
+.upgrade-content {
+  background-color: #fefefe; /* Fond blanc pour le contenu */
+  margin: 10% auto; /* Centre le contenu verticalement et horizontalement */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Largeur du contenu */
+  max-width: 600px; /* Largeur maximale du contenu */
+}
+
+/* Styles pour le bouton de fermeture */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Styles pour la grille des upgrades */
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "logo infos cost"
+    "button button button";
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Styles pour le logo de l'upgrade */
+.logo {
+  grid-area: logo;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Styles pour les informations de l'upgrade */
+.infosupgrade {
+  grid-area: infos;
+}
+
+.upgradename {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.upgradecost {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+/* Styles pour le bouton "Acheter" */
+.acheter {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.acheter:hover {
+  background-color: #3e8e41;
+}
+
+.acheter:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

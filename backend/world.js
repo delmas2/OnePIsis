@@ -5,7 +5,7 @@ module.exports = {
     "score": 0,
     "totalangels": 0,
     "activeangels": 0,
-    "angelbonus": 2,
+    "angelbonus": 0,
     "lastupdate": "0",
     "products": [
         {

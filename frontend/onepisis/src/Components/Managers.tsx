@@ -14,6 +14,11 @@ interface ModalProps {
     const[world, setWorld]= useState(loadworld)
     const[money, setMoney]= useState(world.money)
 
+    function onHireManager(manager: Pallier){
+        if(world.money>=manager.seuil){
+            hireManager(manager)
+        }
+    }
 
     return (
       <div className={`modal ${isOpen ? "open" : ""}`}>
@@ -48,8 +53,8 @@ interface ModalProps {
                                                     </div>
                                                     <div className="managercost">{manager.seuil}</div>
                                                 </div>
-                                                <div onClick={() => hireManager(manager)}>
-                                                    <button className="acheter" disabled={money <= manager.seuil}>Acheter!</button>
+                                                <div onClick={() => onHireManager(manager)}>
+                                                    <button className="acheter" disabled={money < manager.seuil}>Acheter!</button>
                                                 </div>
                                             </div>
                                         );

@@ -5,7 +5,7 @@ import ProductComponent from "./Product";
 import { transform } from "../utils";
 import { gql, useMutation } from "@apollo/client";
 import Modal from "./Managers";
-
+import Amelioration from "./Ameliorations";
 
 type MainProps = {
   loadworld: World;
@@ -18,6 +18,8 @@ export default function Main({ loadworld, username }: MainProps) {
   const [qtmulti, setQtmulti] = useState("x1");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [money, setMoney] = useState(world.money)
+  const [isAmeliorationOpen, setIsAmeliorationOpen] = useState(false);
+
 
 
 
@@ -30,7 +32,7 @@ export default function Main({ loadworld, username }: MainProps) {
 
 
   function onProductionDone(produit: Product): void {
-    // calcul de la somme obtenue par la production du produit
+    // calcul de la somme obtenue par la produition du produit
     let gain = produit.revenu * produit.quantite;
     // ajout de la somme à l’argent possédé
     world.score += gain;
@@ -40,42 +42,62 @@ export default function Main({ loadworld, username }: MainProps) {
 
   
   const ACHETER_QTE = gql`
- mutation acheterQtProduit($id: Int!, $quantite: Int!) {
- lancerProductionProduit(id: $id, quantite:$quantite) {
-      id
-      quantite
-}
-}`
+         mutation acheterQtProduit($id: Int!, $quantite: Int!) {
+            acheterQtProduit(id: $id, quantite: $quantite) {
+             id
+             quantite
+             }
+         }`;
 
-const [acheterQtProduit] = useMutation(ACHETER_QTE,
- { context: { headers: { "x-user": username }},
- onError: (error): void => {
-console.log("errorAcheterQteProduit")
- }
- }
-)
-  function onProductBuy(quantity: number, produit: Product): void {
+  const ACHETER_UPGRADES = gql`
+         mutation acheterCashUpgrade($name: String!) {
+            acheterCashUpgrade(name: $name) {
+                name
+             }
+         }`;
+
+
+    const [acheterQtProduit] = useMutation(ACHETER_QTE,
+        { context: { headers: { "x-user": username }},
+            onError: (error): void => {
+                console.log(error);
+            }
+        }
+    )
+
+    const [acheterCashUpgrade] = useMutation(ACHETER_UPGRADES,
+      { context: { headers: { "x-user": username }},
+          onError: (error): void => {
+              console.log(error);
+          }
+      }
+  )
+  function onProductBuy(quantite: number, produit: Product): void {
     console.log("test")
     console.log(world.money)
-    let prix = prevision(quantity, produit)
-    //console.log(product.quantite)
-    produit.quantite= produit.quantite + quantity
-    //console.log(product.quantite)
-    produit.cout=produit.cout*Math.pow(produit.croissance, quantity)
+    let prix = prevision(quantite, produit)
+    console.log(produit.quantite)
+    console.log("avant ajout quantite")
+    produit.quantite= produit.quantite + quantite
+    console.log("apres ajout quantite")
+    console.log(produit.quantite)
+    produit.cout=produit.cout*Math.pow(produit.croissance, quantite)
     world.money = world.money - prix
     setWorld(prevWorld => ({...prevWorld, money: prevWorld.money}));
     console.log(world.money)
-    acheterQtProduit({ variables: { id: produit.id, quantite:quantity } });
+    //acheterQtProduit({ variables: { id: produit.id, quantite:produit.quantite } });
+    console.log("apres mutation")
+    console.log(produit.quantite)
 
 }
 
 
   // calcule le prix du produit en fonction de sa quantité et de sa croissance
-  function prevision(quantity: number, product: Product): number {
-    let price = product.cout;
-    let somme= product.cout
+  function prevision(quantity: number, produit: Product): number {
+    let price = produit.cout;
+    let somme= produit.cout
     for (let i = 1; i < quantity; i++) {
-      price =product.cout * product.croissance
+      price =produit.cout * produit.croissance
       somme = somme + price;
     }
     console.log("somme "+ somme)
@@ -93,6 +115,18 @@ console.log("errorAcheterQteProduit")
   }
 
 
+  function handleOpenAmelioration() {
+    setIsAmeliorationOpen(true);
+    console.log(isAmeliorationOpen)
+  }
+
+  function handleCloseAmelioration() {
+    setIsAmeliorationOpen(false);
+  }
+
+
+
+
   function hireManager(manager: Pallier): void{
     let arg = world.money
     if (arg >= manager.seuil) {
@@ -101,14 +135,34 @@ console.log("errorAcheterQteProduit")
         // Positionner la propriété unlocked du manager à vrai
         manager.unlocked = true;
         // Trouver le produit associé au manager
-        const product = world.products.find((p) => p.id === manager.idcible);
-        if (product) {
+        const produit = world.products.find((p) => p.id === manager.idcible);
+        if (produit) {
             // Positionner la propriété managerUnlocked du produit à vrai
-            product.managerUnlocked = true;
+            produit.managerUnlocked = true;
 
         }
     }
 }
+
+function buyUpgrades(upgrades: Pallier): void{
+  let arg = world.money
+  if (arg >= upgrades.seuil) {
+      // Retirer le coût de l'upgrades de l'argent possédé par le joueur
+      world.money = arg - upgrades.seuil;
+      // Positionner la propriété unlocked de l'upgrades à vrai
+      upgrades.unlocked = true;
+      // Trouver le produit associé à l'upgrades
+      const produit = world.products.find((p) => p.id === upgrades.idcible);
+      if (produit) {
+        if(upgrades.typeratio=="gain"){
+          produit.revenu= produit.revenu * upgrades.ratio;
+        }
+                    
+      acheterCashUpgrade({ variables: { name : upgrades.name} });
+      }
+  }
+}
+
 
   
   return (
@@ -141,8 +195,8 @@ console.log("errorAcheterQteProduit")
       </div>
       <div className="two">
         <span className="menu">Menu</span>
-        <button className="amelioration-button">Améliorations</button>
         <div className="zzzz">
+        <button onClick={handleOpenAmelioration} className="amelioration-button">Améliorations</button>
         <button onClick={handleOpenModal} className="manager-button">Managers</button>
         <Modal isOpen={isModalOpen} onClose={handleCloseModal} loadworld={world} hireManager={hireManager}/> 
         </div>    

@@ -62,7 +62,7 @@
   text-align: center;
   width: 150px;
   height: 50px;
-  top: 280px;
+  top: 185px;
   left: 28px;
   background-image: url(../fondButton.png);
   color: black;
@@ -255,3 +255,4 @@
   position: relative;
   z-index: 3;
 }
+
