@@ -288,7 +288,7 @@ module.exports = {
         {
             "name": "Gear 4",
             "logo": "icones/UpgradeLuffy2.png",
-            "seuil": 300,
+            "seuil": 1e10,
             "idcible": 1,
             "ratio": 3,
             "typeratio": "gain",
