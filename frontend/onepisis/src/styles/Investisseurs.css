@@ -35,7 +35,8 @@
   
   /* Styles pour le titre du modal */
   .custom-modal-title {
-    margin: 0;
+    position: absolute;
+    left: 50px;
   }
   
   /* Styles pour le conteneur d'informations sur les investisseurs */

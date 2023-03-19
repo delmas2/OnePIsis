@@ -341,7 +341,7 @@ module.exports = {
         },
         {
             "name": "Cinquième Empereur",
-            "logo": "icones/UpgradeEquipage.png",
+            "logo": "icones/UpgradeEquipage2.png",
             "seuil": 1e16,
             "idcible": 0,
             "ratio": 3,
