@@ -104,12 +104,14 @@ function ProductComponent({ product, onProductionDone, onProductBuy, money, qtmu
   <div className="product-details">
     <p className="revenu" dangerouslySetInnerHTML={{__html: transform(product.revenu*product.quantite)}}></p>
     <p className="quantite" >{product.quantite}</p>
-    <button className="buttonbuy"  onClick={() => {
-    if (money >= product.cout || qtmulti=="x1" ) {
+    <button className="buttonbuy" 
+    
+    onClick={() => {
+    if (money >= product.cout && qtmulti=="x1" ) {
       onProductBuy(product)}
-      if (money >= product.cout*10 || qtmulti=="x10" ) {
+      if (money >= ((Math.pow(product.croissance, 10) - 1) / (product.croissance - 1) * product.cout) && qtmulti=="x10" ) {
         onProductBuy(product)}
-        if (money >= product.cout*100 || qtmulti=="x100" ) {
+        if (money >= ((Math.pow(product.croissance, 100) - 1) / (product.croissance - 1) * product.cout) && qtmulti=="x100" ) {
           onProductBuy(product);
     }}} id={"handleBuyProduct" + product.id.toString()}>
       Acheter {qtmulti}

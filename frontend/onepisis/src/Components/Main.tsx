@@ -164,16 +164,7 @@ function onProductionDone(p: Product): void {
         setMoney(moneyWorld)
         acheterQtProduit({ variables: { id: p.id, quantite: 100 } });
       }
-      if (qtmulti === "Max"){
-        // on calcule le maximum de produit qu'on peut acheter
-        let maxCanBuy = Math.floor((Math.log10(((money * (p.croissance - 1))/p.cout) + 1))/Math.log10(p.croissance))
-
-        p.quantite += maxCanBuy
-        let moneyWorld = money - ((Math.pow(p.croissance, maxCanBuy) - 1) / (p.croissance - 1) * p.cout)
-        p.cout = p.cout * Math.pow(p.croissance, maxCanBuy)
-        setMoney(moneyWorld)
-        acheterQtProduit({ variables: { id: p.id, quantite: maxCanBuy } });
-      }
+      
     }
     // on vérifie si il y a un unlock a débloquer
     p.palliers.forEach(u => {
@@ -302,28 +293,29 @@ function onProductionDone(p: Product): void {
 
 
 function buyUpgrades(upgrades: Pallier): void{
-  let argent = money
-  const produit = world.products.find((produit) => produit.id === upgrades.idcible);
-  if (produit === undefined) {
-    throw new Error(
-      `Le produit avec l'id ${upgrades.idcible} n'existe pas`)
-    }
-  else{
-      let newMoney = argent - upgrades.seuil;
-      setMoney(newMoney);
-      upgrades.unlocked = true;
-      if (produit) {
-        if(upgrades.typeratio=="gain"){
-          produit.revenu= produit.revenu*upgrades.ratio;
-      }else{
-          produit.vitesse= produit.vitesse*upgrades.ratio;
+    upgrades.unlocked = true;
+
+    let newMoney = money - upgrades.seuil
+    setMoney(newMoney)
+
+    let produit = world.products.find(p => p.id === upgrades.idcible)
+
+    if (produit === undefined) {
+      throw new Error(
+        `Le produit avec l'id ${upgrades.idcible} n'existe pas`)
+    } else {
+      if (upgrades.typeratio === "vitesse") {
+        produit.vitesse = Math.round(produit.vitesse / upgrades.ratio)
       }
-      acheterCashUpgrade({ variables: { name : upgrades.name} });
+      if (upgrades.typeratio === "gain") {
+        produit.revenu = produit.revenu * upgrades.ratio
+      }
+    }
+    acheterCashUpgrade({ variables: { name: upgrades.name } });
+    setSnackbar(upgrades.name + "débloqué!")
+    setSnackbarOpen(true)
+
   }
-      setSnackbar(upgrades.name + "débloqué!")
-      setSnackbarOpen(true)
-  }
-}
 
 // acheter des angelUpgrades
 function buyAngelUpgrades(angel: Pallier): void {
@@ -371,8 +363,6 @@ function buyAngelUpgrades(angel: Pallier): void {
                 setQtmulti("x100");
                 break;
               case "x100":
-                setQtmulti("MAX");
-                break;
               default:
                 setQtmulti("x1");
                 break;

@@ -58,6 +58,8 @@ function AllUnlocks({loadworld, isOpen, onClose}: AllUnloksProps) {
               <h2 className="allunlock-name">{allunlock.name}</h2>
               <div className="allunlock-cost">{allunlock.seuil}</div>
               <div className="allunlock-ratio">{allunlock.typeratio} x{allunlock.ratio}</div>
+              {allunlock.unlocked && <p className="pallier-unlocked">Dévérouillé</p>}
+
             </div>
           </div>
         ))}
