@@ -54,7 +54,7 @@ interface AngelUpgradesProps {
                                                     <div className="angelscost">X{angels.ratio}</div>
                                                 </div>
                                                 <div onClick={() => onBuyAngelUpgrades(angels)}>
-                                                    <button className="acheter" disabled={money < angels.seuil}>Acheter!</button>
+                                                    <button className="acheter" disabled={world.activeangels < angels.seuil}>Acheter!</button>
                                                 </div>
                                             </div>
                                         );

@@ -6,9 +6,10 @@ import { transform } from "../utils";
 import { gql, useMutation } from "@apollo/client";
 import Modal from "./Managers";
 import Amelioration from "./Ameliorations";
-import AllUnlocksComponent from "./AllUnlocks";
 import AngelUpgrades from "./AngelUpgrades";
 import { Button, IconButton, Snackbar } from '@mui/material';
+import AllUnlocks from "./AllUnlocks";
+import Investisseurs from "./Investisseurs";
 
 
 const ACHETER_QTE = gql`
@@ -72,8 +73,10 @@ export default function Main({ loadworld, username }: MainProps) {
   const [isAllUnlocksOpen, setIsAllUnlocksOpen] = useState(false);
   const [score, setScore] = useState(world.score);
   const [isAngelUpgradesOpen, setIsAngelUpgradesOpen]= useState(false);
+
   const [ange, setAnge]= useState(world.activeangels)
-  
+  const [bonusAnge, setBonusAnge] = useState(world.angelbonus);
+  const [isInvestisseursOpen, setIsInvestisseursOpen] = useState(false);
 
   const [snackbar, setSnackbar] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -85,19 +88,18 @@ export default function Main({ loadworld, username }: MainProps) {
 };
 
 
-  function onProductionDone(produit: Product): void {
-    // calcul de la somme obtenue par la produition du produit
-    let gain = produit.revenu * produit.quantite;
-    // ajout de la somme à l’argent possédé
-    let newScore = score + gain;
-    setScore(newScore)
-    let newMoney = money + gain;
-    setMoney(newMoney) 
-    console.log("argent apres production")  
-    console.log(money) 
-  }
+function onProductionDone(p: Product): void {
+  // calcul de la somme obtenue par la production du produit
+  let gain = p.revenu * p.quantite * (1 + ange * bonusAnge / 100)
+  // ajout de la somme à l’argent possédé
+  let newScore = score + gain
+  let newMoney = money + gain
+  setScore(newScore)
+  setMoney(newMoney)
+  console.log(newMoney)
+  console.log(money)
+}
 
-  
 
 
   const [acheterQtProduit] = useMutation(ACHETER_QTE,
@@ -127,103 +129,105 @@ export default function Main({ loadworld, username }: MainProps) {
       }
   )
 
-
-    function onProductBuy(produit: Product) {
-      let Quantite = produit.quantite
-      console.log(produit.cout)
-      if (money >= produit.cout) {
-        if (qtmulti === "x1") {
-          produit.quantite += 1
-          let newMoney = money - ((Math.pow(produit.croissance, 1) - 1) / (produit.croissance - 1) * produit.cout)
-          produit.cout = produit.cout * Math.pow(produit.croissance, 1)
-          setMoney(newMoney)
-          console.log(produit.cout)
-          acheterQtProduit({ variables: { id: produit.id, quantite: 1 } })
-
-          console.log("argent")
-          console.log(money)
-          
-          console.log("produit.cout")
-          console.log(produit.cout)
+  const [acheterAngelUpgrade] = useMutation(ACHETER_ANGELS_UPGRADES,
+    { context: { headers: { "x-user": username }},
+        onError: (error): void => {
+        // actions en cas d'erreur
         }
-        
-        if (qtmulti === "x10") {
-          produit.quantite += 10
-          let newMoney = money - ((Math.pow(produit.croissance, 10) - 1) / (produit.croissance - 1) * produit.cout)
-          produit.cout = produit.cout * Math.pow(produit.croissance, 10)
-          setMoney(newMoney)
-          acheterQtProduit({ variables: { id: produit.id, quantite: 10 } });
-        }
-        if (qtmulti === "x100") {
-          produit.quantite += 100
-          let newMoney = money - ((Math.pow(produit.croissance, 100) - 1) / (produit.croissance - 1) * produit.cout)
-          produit.cout = produit.cout * Math.pow(produit.croissance, 100)
-          setMoney(newMoney)
-          acheterQtProduit({ variables: { id: produit.id, quantite: 100 } });
-        }
-        if (qtmulti === "Max"){
-          let maxCanBuy = Math.floor((Math.log10(((money * (produit.croissance - 1))/produit.cout) + 1))/Math.log10(produit.croissance))
+    }
+)
   
-          produit.quantite += maxCanBuy
-          let newMoney = money - ((Math.pow(produit.croissance, maxCanBuy) - 1) / (produit.croissance - 1) * produit.cout)
-          produit.cout = produit.cout * Math.pow(produit.croissance, maxCanBuy)
-          setMoney(newMoney)
-          acheterQtProduit({ variables: { id: produit.id, quantite: maxCanBuy } });
-        }
-      }
 
-      produit.palliers.forEach(i => {
-        if (i.idcible === produit.id && produit.quantite >= i.seuil && Quantite<i.seuil) {
-          i.unlocked = true
-          setSnackbar(i.name + "" + i.typeratio +"" + "" + i.ratio + "débloqué!")
-          setSnackbarOpen(true)
-          if (i.typeratio === "vitesse") {
-            produit.vitesse = Math.round(produit.vitesse / i.ratio)
-          }
-          if (i.typeratio === "gain") {
-            produit.revenu = produit.revenu * i.ratio
-          }
-          if (i.typeratio === "ange") {
-            world.angelbonus += i.ratio
-          }
+  function onProductBuy(p: Product) {
+    let lastQuantite = p.quantite
+    //console.log("jai cliqué ")
+    if (money >= p.cout) {
+      if (qtmulti === "x1") {
+        p.quantite += 1
+        let moneyWorld = money - ((Math.pow(p.croissance, 1) - 1) / (p.croissance - 1) * p.cout)
+        p.cout = p.cout * Math.pow(p.croissance, 1)
+        setMoney(moneyWorld)
+        console.log(money)
+        acheterQtProduit({ variables: { id: p.id, quantite: 1 } });
+      }
+      if (qtmulti === "x10") {
+        p.quantite += 10
+        let moneyWorld = money - ((Math.pow(p.croissance, 10) - 1) / (p.croissance - 1) * p.cout)
+        p.cout = p.cout * Math.pow(p.croissance, 10)
+        setMoney(moneyWorld)
+        acheterQtProduit({ variables: { id: p.id, quantite: 10 } });
+      }
+      if (qtmulti === "x100") {
+        p.quantite += 100
+        let moneyWorld = money - ((Math.pow(p.croissance, 100) - 1) / (p.croissance - 1) * p.cout)
+        p.cout = p.cout * Math.pow(p.croissance, 100)
+        setMoney(moneyWorld)
+        acheterQtProduit({ variables: { id: p.id, quantite: 100 } });
+      }
+      if (qtmulti === "Max"){
+        // on calcule le maximum de produit qu'on peut acheter
+        let maxCanBuy = Math.floor((Math.log10(((money * (p.croissance - 1))/p.cout) + 1))/Math.log10(p.croissance))
+
+        p.quantite += maxCanBuy
+        let moneyWorld = money - ((Math.pow(p.croissance, maxCanBuy) - 1) / (p.croissance - 1) * p.cout)
+        p.cout = p.cout * Math.pow(p.croissance, maxCanBuy)
+        setMoney(moneyWorld)
+        acheterQtProduit({ variables: { id: p.id, quantite: maxCanBuy } });
+      }
+    }
+    // on vérifie si il y a un unlock a débloquer
+    p.palliers.forEach(u => {
+      if (u.idcible === p.id && p.quantite >= u.seuil && lastQuantite<u.seuil) {
+        u.unlocked = true
+        setSnackbar(u.name + u.typeratio + "fois" + u.ratio + "débloqué!")
+        setSnackbarOpen(true)
+        
+        if (u.typeratio === "vitesse") {
+          p.vitesse = Math.round(p.vitesse / u.ratio)
+        }
+        if (u.typeratio === "gain") {
+          p.revenu = p.revenu * u.ratio
+        }
+        if (u.typeratio === "ange") {
+          world.angelbonus += u.ratio
         }
       }
-        );
-        world.allunlocks.forEach(i => {
-          if (produit.quantite >= i.seuil && Quantite<i.seuil) {
-            let allunlocks = true
-            // on parcours les produits pour savoir s'il ont tous un quantité suffisante
-            world.products.forEach(p => {
-              if (p.quantite < i.seuil) {
-                allunlocks = false
+    })
+    // on vérifie si des allunlocks sont débloqués
+    world.allunlocks.forEach(a => {
+      if (p.quantite >= a.seuil && lastQuantite<a.seuil) {
+        let allunlocks = true
+        // on parcours les produits pour savoir s'il ont tous un quantité suffisante
+        world.products.forEach(p => {
+          if (p.quantite < a.seuil) {
+            allunlocks = false
+          }
+        })
+        if (allunlocks) {
+          a.unlocked = true
+          setSnackbar(a.name + a.typeratio + "fois" + a.ratio + "débloqué!")
+          setSnackbarOpen(true)
+          if (a.typeratio === "ange") {
+            world.angelbonus += a.ratio
+          } else {
+            let produitCible = world.products.find(p => p.id === a.idcible)
+
+            if (produitCible === undefined) {
+              throw new Error(
+                `Le produit avec l'id ${a.idcible} n'existe pas`)
+            } else {
+              if (a.typeratio === "vitesse") {
+                produitCible.vitesse = Math.round(produitCible.vitesse / a.ratio)
               }
-            })
-            if (allunlocks) {
-              i.unlocked = true
-              setSnackbar(i.name + i.typeratio + "fois" + i.ratio + "débloqué!")
-              setSnackbarOpen(true)
-              if (i.typeratio === "ange") {
-                world.angelbonus += i.ratio
-              } else {
-                let produitCible = world.products.find(p => p.id === i.idcible)
-    
-                if (produitCible === undefined) {
-                  throw new Error(
-                    `Le produit avec l'id ${i.idcible} n'existe pas`)
-                } else {
-                  if (i.typeratio === "vitesse") {
-                    produitCible.vitesse = Math.round(produitCible.vitesse / i.ratio)
-                  }
-                  if (i.typeratio === "gain") {
-                    produitCible.revenu = Math.round(produitCible.revenu * i.ratio)
-                  }
-                }
+              if (a.typeratio === "gain") {
+                produitCible.revenu = Math.round(produitCible.revenu * a.ratio)
               }
             }
           }
-        })
+        }
       }
-
+    })
+  }
 
 
   
@@ -264,6 +268,15 @@ export default function Main({ loadworld, username }: MainProps) {
 
   function handleCloseAngelUpgrades() {
     setIsAngelUpgradesOpen(false);
+  }
+
+  function handleOpenInvestisseurs() {
+    setIsInvestisseursOpen(true);
+    console.log(isInvestisseursOpen)
+  }
+
+  function handleCloseInvestisseurs() {
+    setIsInvestisseursOpen(false);
   }
 
 
@@ -312,27 +325,27 @@ function buyUpgrades(upgrades: Pallier): void{
   }
 }
 
-function buyAngelUpgrades(angels: Pallier): void{
-  let anges = angels
-  const produit = world.products.find((produit) => produit.id === angels.idcible);
+// acheter des angelUpgrades
+function buyAngelUpgrades(angel: Pallier): void {
+  angel.unlocked = true
+  let newAnge = ange - angel.seuil
+  setAnge(newAnge)
 
-  if (produit === undefined) {
-    throw new Error(
-      `Le produit avec l'id ${angels.idcible} n'existe pas`)
-    }
-  else{
-      let newAnges = ange - angels.seuil;
-      setAnge(newAnges);
-      angels.unlocked = true;
-      if (produit) {
-        if(angels.typeratio=="gain"){
-          produit.revenu= produit.revenu*angels.ratio;
-      }else{
-          produit.vitesse= produit.vitesse*angels.ratio;
+  if (angel.typeratio === "ange") {
+    let newAngelBonus = bonusAnge + angel.ratio
+    setBonusAnge(newAngelBonus)
+  } else {
+    world.products.forEach(produit => {
+
+      if (angel.typeratio === "vitesse") {
+        produit.vitesse = Math.round(produit.vitesse / angel.ratio)
       }
-      acheterCashUpgrade({ variables: { name : angels.name} });
+      if (angel.typeratio === "gain") {
+        produit.revenu = produit.revenu * angel.ratio
+      }
+    })
   }
-  }
+  acheterAngelUpgrade({ variables: { name: angel.name } });
 }
   
   function onAllUnlocks(allUnlocks: Pallier): void {
@@ -377,9 +390,10 @@ function buyAngelUpgrades(angels: Pallier): void{
         <Modal isOpen={isModalOpen} onClose={handleCloseModal} loadworld={world} hireManager={hireManager} money={money}/> 
          
         <button className="deblocage-button" onClick={handleOpenAllUnlocks}>Déblocages</button>
-        <AllUnlocksComponent isOpen={isAllUnlocksOpen} onClose={handleCloseAllUnlocks} loadworld={world}   onAllUnlocks={onAllUnlocks}/>
+        <AllUnlocks isOpen={isAllUnlocksOpen} onClose={handleCloseAllUnlocks} loadworld={world}  onAllUnlocks={onAllUnlocks}/>
         
-        <button className="investisseur-button">Investisseurs</button>
+        <button className="investisseur-button" onClick={handleOpenInvestisseurs}>Investisseurs</button>
+        <Investisseurs isOpen={isInvestisseursOpen} onClose={handleCloseInvestisseurs} loadworld={world} username={username} />
 
         <button className="amelioration-anges-button" onClick={handleOpenAngelUpgrades}>Angel Upgrade</button>
         <AngelUpgrades isOpen={isAngelUpgradesOpen} onClose={handleCloseAngelUpgrades} loadworld={world}  buyAngelUpgrades={buyAngelUpgrades}/>

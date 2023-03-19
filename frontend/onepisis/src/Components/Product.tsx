@@ -6,6 +6,15 @@ import {useInterval} from './MyInterval'; // Import de la fonction "useInterval"
 import { useRef, useState } from "react"; // Import de la fonction "useRef" et "useState" depuis la librairie React
 import { gql, useMutation } from "@apollo/client";
 
+
+const LANCER_PRODUCTION = gql`
+    mutation lancerProductionProduit($id: Int!) {
+        lancerProductionProduit(id: $id) {
+            id
+        }
+    }
+`;
+
 // Définition du type ProductProps qui représente les propriétés de ProductComponent
 type ProductProps = {
   product: Product;
@@ -56,27 +65,22 @@ function ProductComponent({ product, onProductionDone, onProductBuy, money, qtmu
  useInterval(() => calcScore(), 100)
 
 
-const LANCER_PRODUCTION = gql`
- mutation lancerProductionProduit($id: Int!) {
- lancerProductionProduit(id: $id) {
-      id
-}
-}`
 
-const [lancerProduction] = useMutation(LANCER_PRODUCTION,
- { context: { headers: { "x-user": username }},
- onError: (error): void => {
-console.log("error")
- }
- }
-)
+
+ const [lancerProduction] = useMutation(LANCER_PRODUCTION,
+  { context: { headers: { "x-user": username }},
+  onError: (error): void => {
+  // actions en cas d'erreur
+  }
+  }
+ )
 
  // Fonction qui lance la production du produit
- function startFabrication(){
-    setTimeLeft(product.vitesse);
-    lastUpdate.current=Date.now();
-    lancerProduction({ variables: { id: product.id } });
- }
+ function startFabrication() {
+  setTimeLeft(product.vitesse);
+  lastUpdate.current = Date.now();
+  lancerProduction({ variables: { id: product.id } });
+}
 
  return (
   <div className="product-container">
@@ -101,8 +105,12 @@ console.log("error")
     <p className="revenu" dangerouslySetInnerHTML={{__html: transform(product.revenu*product.quantite)}}></p>
     <p className="quantite" >{product.quantite}</p>
     <button className="buttonbuy"  onClick={() => {
-    if (money >= product.cout ) {
-      onProductBuy(product);
+    if (money >= product.cout || qtmulti=="x1" ) {
+      onProductBuy(product)}
+      if (money >= product.cout*10 || qtmulti=="x10" ) {
+        onProductBuy(product)}
+        if (money >= product.cout*100 || qtmulti=="x100" ) {
+          onProductBuy(product);
     }}} id={"handleBuyProduct" + product.id.toString()}>
       Acheter {qtmulti}
     </button>

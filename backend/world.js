@@ -1,7 +1,7 @@
 module.exports = {
     "name": "OnePisis",
     "logo": "icones/worldLogo.png",
-    "money": 1,
+    "money": 0,
     "score": 0,
     "totalangels": 0,
     "activeangels": 0,

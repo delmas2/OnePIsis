@@ -12,7 +12,7 @@ type AllUnloksProps = {
     onAllUnlocks: (allUnlocks: Pallier) => void;
 
 }
-function AllUnlocksComponent({loadworld, isOpen, onClose}: AllUnloksProps) {
+function AllUnlocks({loadworld, isOpen, onClose}: AllUnloksProps) {
 
 
 
@@ -67,4 +67,4 @@ function AllUnlocksComponent({loadworld, isOpen, onClose}: AllUnloksProps) {
             
     );
 }
-export default AllUnlocksComponent;
+export default AllUnlocks;
