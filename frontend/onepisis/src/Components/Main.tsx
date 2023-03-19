@@ -36,13 +36,6 @@ mutation acheterCashUpgrade($name: String!) {
     }
 }`;
 
-const RESET_WORLD = gql`
-    mutation resetWorld {
-      resetWorld {
-        name
-        }
-    }
-`;
 
 const ACHETER_ANGELS_UPGRADES = gql`
 mutation acheterAngelUpgrade($name: String!) {
@@ -64,22 +57,23 @@ export default function Main({ loadworld, username }: MainProps) {
     setWorld(JSON.parse(JSON.stringify(loadworld)) as World);
   }, [loadworld]);
 
+//Hook:
 
   const [qtmulti, setQtmulti] = useState("x1");
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [money, setMoney] = useState(world.money)
-  const [isAmeliorationOpen, setIsAmeliorationOpen] = useState(false);
-  const [isAllUnlocksOpen, setIsAllUnlocksOpen] = useState(false);
   const [score, setScore] = useState(world.score);
-  const [isAngelUpgradesOpen, setIsAngelUpgradesOpen]= useState(false);
-
   const [ange, setAnge]= useState(world.activeangels)
   const [bonusAnge, setBonusAnge] = useState(world.angelbonus);
-  const [isInvestisseursOpen, setIsInvestisseursOpen] = useState(false);
-
   const [snackbar, setSnackbar] = useState("");
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+
+// Hook pour l'affichage des modals
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAmeliorationOpen, setIsAmeliorationOpen] = useState(false);
+  const [isAllUnlocksOpen, setIsAllUnlocksOpen] = useState(false);
+  const [isInvestisseursOpen, setIsInvestisseursOpen] = useState(false);
+  const [isAngelUpgradesOpen, setIsAngelUpgradesOpen]= useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);  
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
         return;
@@ -88,130 +82,175 @@ export default function Main({ loadworld, username }: MainProps) {
 };
 
 
-function onProductionDone(p: Product): void {
-  // calcul de la somme obtenue par la production du produit
-  let gain = p.revenu * p.quantite * (1 + ange * bonusAnge / 100)
+
+//----------FONCTIONS GERANT L'OUVETURE ET LA FERMETURE DES "MODAL"------------------------
+//--Managers
+function handleOpenModal() {
+  setIsModalOpen(true);
+  console.log(isModalOpen)
+}
+
+function handleCloseModal() {
+  setIsModalOpen(false);
+}
+
+//--Upgrades
+function handleOpenAmelioration() {
+  setIsAmeliorationOpen(true);
+  console.log(isAmeliorationOpen)
+}
+
+function handleCloseAmelioration() {
+  setIsAmeliorationOpen(false);
+}
+
+//--Déblocages
+function handleOpenAllUnlocks() {
+  setIsAllUnlocksOpen(true);
+  console.log(isAllUnlocksOpen)
+}
+
+function handleCloseAllUnlocks() {
+  setIsAllUnlocksOpen(false);
+}
+
+//--AngelUpgrades
+function handleOpenAngelUpgrades() {
+  setIsAngelUpgradesOpen(true);
+  console.log(isAngelUpgradesOpen)
+}
+
+function handleCloseAngelUpgrades() {
+  setIsAngelUpgradesOpen(false);
+}
+
+//--Investisseur
+function handleOpenInvestisseurs() {
+  setIsInvestisseursOpen(true);
+  console.log(isInvestisseursOpen)
+}
+
+function handleCloseInvestisseurs() {
+  setIsInvestisseursOpen(false);
+}
+
+
+//---------- PRODUCTION TERMINE ----------------
+function onProductionDone(produit: Product): void {
+  //calcul du gain en tenant compte de la quantite 
+  let gain = produit.revenu * produit.quantite * (1 + ange * bonusAnge / 100)
   // ajout de la somme à l’argent possédé
   let newScore = score + gain
   let newMoney = money + gain
   setScore(newScore)
   setMoney(newMoney)
-  console.log(newMoney)
-  console.log(money)
+  //console.log(newMoney)
+  //console.log(money)
 }
 
 
-
-  const [acheterQtProduit] = useMutation(ACHETER_QTE,
-    {
-      context: { headers: { "x-user": username } },
-      onError: (error): void => {
-        // actions en cas d'erreur
-      }
-    }
-  )
-
-  const [engagerManager] = useMutation(ENGAGER_MANAGER,
-    {
-      context: { headers: { "x-user": username } },
-      onError: (error): void => {
-        // actions en cas d'erreur
-      }
-    }
-  )
   
+//---------------- PRODUCTION D'UN PRODUIT ------------------
 
-    const [acheterCashUpgrade] = useMutation(ACHETER_UPGRADES,
-      { context: { headers: { "x-user": username }},
-          onError: (error): void => {
-              console.log(error);
-          }
-      }
-  )
-
-  const [acheterAngelUpgrade] = useMutation(ACHETER_ANGELS_UPGRADES,
-    { context: { headers: { "x-user": username }},
-        onError: (error): void => {
-        // actions en cas d'erreur
-        }
+//--Mutation
+const [acheterQtProduit] = useMutation(ACHETER_QTE,
+  {
+    context: { headers: { "x-user": username } },
+    onError: (error): void => {
+      // actions en cas d'erreur
     }
+  }
 )
-  
 
-  function onProductBuy(p: Product) {
-    let lastQuantite = p.quantite
-    //console.log("jai cliqué ")
-    if (money >= p.cout) {
-      if (qtmulti === "x1") {
-        p.quantite += 1
-        let moneyWorld = money - ((Math.pow(p.croissance, 1) - 1) / (p.croissance - 1) * p.cout)
-        p.cout = p.cout * Math.pow(p.croissance, 1)
-        setMoney(moneyWorld)
-        console.log(money)
-        acheterQtProduit({ variables: { id: p.id, quantite: 1 } });
+//--Fonction
+  function onProductBuy(produit: Product) {
+    let Quantite = produit.quantite
+    //si on peut acheter le produit alors on defini un cas pour chaque valeur de qtmulti
+    if (money >= produit.cout) {
+        if (qtmulti == "x1") {
+        //On rajoute a la quantite du produit passer en paramètre (ici 1)
+        produit.quantite = produit.quantite + 1
+
+        //On passe dans une variable la nouvelle valeur de money
+        let newMoney = money - ((Math.pow(produit.croissance, 1) - 1) / (produit.croissance - 1) * produit.cout)
+
+        //Le nouveau coup du produit est établi
+        produit.cout = produit.cout * Math.pow(produit.croissance, 1)
+
+        // On utilise setMoney afin de passer la valeur de la variable newMoney dans money
+        setMoney(newMoney)
+        //On appelle la mutation
+        acheterQtProduit({ variables: { id: produit.id, quantite: 1 } });
       }
-      if (qtmulti === "x10") {
-        p.quantite += 10
-        let moneyWorld = money - ((Math.pow(p.croissance, 10) - 1) / (p.croissance - 1) * p.cout)
-        p.cout = p.cout * Math.pow(p.croissance, 10)
-        setMoney(moneyWorld)
-        acheterQtProduit({ variables: { id: p.id, quantite: 10 } });
+      //on fait la meme chose pour qtmulti = 10
+      if (qtmulti == "x10") {
+        produit.quantite = produit.quantite + 10
+        let newMoney = money - ((Math.pow(produit.croissance, 10) - 1) / (produit.croissance - 1) * produit.cout)
+        produit.cout = produit.cout * Math.pow(produit.croissance, 10)
+        setMoney(newMoney)
+        acheterQtProduit({ variables: { id: produit.id, quantite: 10 } });
       }
-      if (qtmulti === "x100") {
-        p.quantite += 100
-        let moneyWorld = money - ((Math.pow(p.croissance, 100) - 1) / (p.croissance - 1) * p.cout)
-        p.cout = p.cout * Math.pow(p.croissance, 100)
-        setMoney(moneyWorld)
-        acheterQtProduit({ variables: { id: p.id, quantite: 100 } });
+      //on fait la meme chose pour qtmulti = 100
+      if (qtmulti == "x100") {
+        produit.quantite = produit.quantite + 100
+        let newMoney = money - ((Math.pow(produit.croissance, 100) - 1) / (produit.croissance - 1) * produit.cout)
+        produit.cout = produit.cout * Math.pow(produit.croissance, 100)
+        setMoney(newMoney)
+        acheterQtProduit({ variables: { id: produit.id, quantite: 100 } });
       }
       
     }
-    // on vérifie si il y a un unlock a débloquer
-    p.palliers.forEach(u => {
-      if (u.idcible === p.id && p.quantite >= u.seuil && lastQuantite<u.seuil) {
-        u.unlocked = true
-        setSnackbar(u.name  + "débloqué!")
-        setSnackbarOpen(true)
+    produit.palliers.forEach(i => { // Pour chaque pallier du produit
+      //On verifie si la quantite est supérieur ou égale à celle d'un palier
+      if (i.idcible === produit.id && produit.quantite >= i.seuil && Quantite<i.seuil) { 
+        //On débloque le pallier
+        i.unlocked = true 
+
+        // Afficher d'un message pour signaler le déblocage éventuel d'un pallier
+        setSnackbar(i.name  + "débloqué!") 
+        setSnackbarOpen(true) 
+
+        // Si le type de ratio est "vitesse" on met à jour la vitesse du produit en la divisant par le ratio du pallier
+        if (i.typeratio === "vitesse") { 
+          produit.vitesse = Math.round(produit.vitesse / i.ratio) 
+        }
+
+        // Si le type de ratio est "gain" on met à jour le gain du produit en le multipliant par le ratio du pallier
+        if (i.typeratio === "gain") { 
+          produit.revenu = produit.revenu * i.ratio 
+        }
         
-        if (u.typeratio === "vitesse") {
-          p.vitesse = Math.round(p.vitesse / u.ratio)
-        }
-        if (u.typeratio === "gain") {
-          p.revenu = p.revenu * u.ratio
-        }
-        if (u.typeratio === "ange") {
-          world.angelbonus += u.ratio
-        }
       }
     })
-    // on vérifie si des allunlocks sont débloqués
-    world.allunlocks.forEach(a => {
-      if (p.quantite >= a.seuil && lastQuantite<a.seuil) {
+    
+    // de la même manière que pour les unlocks simple
+    world.allunlocks.forEach(i => {
+      if (produit.quantite >= i.seuil && Quantite<i.seuil) {
         let allunlocks = true
-        // on parcours les produits pour savoir s'il ont tous un quantité suffisante
-        world.products.forEach(p => {
-          if (p.quantite < a.seuil) {
+        //la différence est qu'ici nous allons parcourir tous les produits et verifier que chacun est la bonne quantité
+        world.products.forEach(produit => {
+          if (produit.quantite < i.seuil) {
             allunlocks = false
           }
         })
         if (allunlocks) {
-          a.unlocked = true
-          setSnackbar(a.name + "débloqué!")
+          i.unlocked = true
+          setSnackbar(i.name + "débloqué!")
           setSnackbarOpen(true)
-          if (a.typeratio === "ange") {
-            world.angelbonus += a.ratio
+          if (i.typeratio === "ange") {
+            world.angelbonus += i.ratio
           } else {
-            let produitCible = world.products.find(p => p.id === a.idcible)
+            let produitCible = world.products.find(produit => produit.id === i.idcible)
 
             if (produitCible === undefined) {
               throw new Error(
-                `Le produit avec l'id ${a.idcible} n'existe pas`)
+                `Le produit avec l'id ${i.idcible} n'existe pas`)
             } else {
-              if (a.typeratio === "vitesse") {
-                produitCible.vitesse = Math.round(produitCible.vitesse / a.ratio)
+              if (i.typeratio === "vitesse") {
+                produitCible.vitesse = Math.round(produitCible.vitesse / i.ratio)
               }
-              if (a.typeratio === "gain") {
-                produitCible.revenu = Math.round(produitCible.revenu * a.ratio)
+              if (i.typeratio === "gain") {
+                produitCible.revenu = Math.round(produitCible.revenu * i.ratio)
               }
             }
           }
@@ -223,87 +262,67 @@ function onProductionDone(p: Product): void {
 
   
 
+//---------------- ENGAGER UN MANAGER ------------------
 
-  function handleOpenModal() {
-    setIsModalOpen(true);
-    console.log(isModalOpen)
-  }
+//--Mutation
+  const [engagerManager] = useMutation(ENGAGER_MANAGER,
+    {
+      context: { headers: { "x-user": username } },
+      onError: (error): void => {
+        // actions en cas d'erreur
+      }
+    }
+  )
 
-  function handleCloseModal() {
-    setIsModalOpen(false);
-  }
-
-
-  function handleOpenAmelioration() {
-    setIsAmeliorationOpen(true);
-    console.log(isAmeliorationOpen)
-  }
-
-  function handleCloseAmelioration() {
-    setIsAmeliorationOpen(false);
-  }
-
-  function handleOpenAllUnlocks() {
-    setIsAllUnlocksOpen(true);
-    console.log(isAllUnlocksOpen)
-  }
-
-  function handleCloseAllUnlocks() {
-    setIsAllUnlocksOpen(false);
-  }
-
-  function handleOpenAngelUpgrades() {
-    setIsAngelUpgradesOpen(true);
-    console.log(isAngelUpgradesOpen)
-  }
-
-  function handleCloseAngelUpgrades() {
-    setIsAngelUpgradesOpen(false);
-  }
-
-  function handleOpenInvestisseurs() {
-    setIsInvestisseursOpen(true);
-    console.log(isInvestisseursOpen)
-  }
-
-  function handleCloseInvestisseurs() {
-    setIsInvestisseursOpen(false);
-  }
-
-
+  //--Fonction
 
   function hireManager(manager: Pallier): void{
-    let argent = money
+    //On defini le produit ciblé
     const produit = world.products.find((produit) => produit.id === manager.idcible);
-    if (produit === undefined) {
-      throw new Error(
-        `Le produit avec l'id ${manager.idcible} n'existe pas`)
-      }
-      else {
-        let newMoney = argent - manager.seuil;
+    
+    //On met à jour l'argent
+    let newMoney = money - manager.seuil;
         setMoney(newMoney)
-        manager.unlocked = true;
-        if (produit) {
-            produit.managerUnlocked = true;
 
+    //On met à jour le statut du manager
+        manager.unlocked = true;
+        
+        if (produit) {
+          //On met à jour le statut du manager dans le produit ciblé
+            produit.managerUnlocked = true;
         }
+
+        // On appelle la mutation
         engagerManager({ variables: { name: manager.name } });
-  }
+  
     }
 
 
-function buyUpgrades(upgrades: Pallier): void{
-    upgrades.unlocked = true;
+//---------------- ACHETER UNE CASH UPGRADE ------------------
 
+//--Mutation
+const [acheterCashUpgrade] = useMutation(ACHETER_UPGRADES,
+  { context: { headers: { "x-user": username }},
+      onError: (error): void => {
+          console.log(error);
+      }
+  }
+)
+
+//--Fonction
+  function buyUpgrades(upgrades: Pallier): void{
+    //On defini le produit ciblé
+    let produit = world.products.find(produit => produit.id === upgrades.idcible)
+
+    //On met à jour l'argent
     let newMoney = money - upgrades.seuil
     setMoney(newMoney)
 
-    let produit = world.products.find(p => p.id === upgrades.idcible)
+    //On met à jour le statut de l'unlock 
+    upgrades.unlocked = true;
 
-    if (produit === undefined) {
-      throw new Error(
-        `Le produit avec l'id ${upgrades.idcible} n'existe pas`)
-    } else {
+
+    if(produit){ 
       if (upgrades.typeratio === "vitesse") {
         produit.vitesse = Math.round(produit.vitesse / upgrades.ratio)
       }
@@ -311,17 +330,37 @@ function buyUpgrades(upgrades: Pallier): void{
         produit.revenu = produit.revenu * upgrades.ratio
       }
     }
+    //on appelle la mutation
     acheterCashUpgrade({ variables: { name: upgrades.name } });
+
+    //popup pour notifier l'obtention d'une nouvelle amélioration
     setSnackbar(upgrades.name + "débloqué!")
     setSnackbarOpen(true)
 
   }
 
-// acheter des angelUpgrades
+
+
+//---------------- ACHETER UNE ANGEL UPGRADE ------------------
+
+//--Mutation
+const [acheterAngelUpgrade] = useMutation(ACHETER_ANGELS_UPGRADES,
+  { context: { headers: { "x-user": username }},
+      onError: (error): void => {
+      // actions en cas d'erreur
+      }
+  }
+)
+
+//--Fonction
 function buyAngelUpgrades(angel: Pallier): void {
-  angel.unlocked = true
+  //On modifie le montant d'ange après l'achat
   let newAnge = ange - angel.seuil
   setAnge(newAnge)
+
+  //On modifie l'état de l'améliration
+  angel.unlocked = true
+
 
   if (angel.typeratio === "ange") {
     let newAngelBonus = bonusAnge + angel.ratio
@@ -337,12 +376,12 @@ function buyAngelUpgrades(angel: Pallier): void {
       }
     })
   }
+  //On appelle la mutation
   acheterAngelUpgrade({ variables: { name: angel.name } });
 }
-  
-  function onAllUnlocks(allUnlocks: Pallier): void {
-    throw new Error("Function not implemented.");
-  }
+
+
+
 
   return (
     <div className="main">
@@ -375,17 +414,18 @@ function buyAngelUpgrades(angel: Pallier): void {
         <div className="zzzz"> 
         
         <button onClick={handleOpenAmelioration} className="amelioration-button">Upgrades</button>
-        <Amelioration isOpen={isAmeliorationOpen} onClose={handleCloseAmelioration} loadworld={world} buyUpgrades={buyUpgrades}/> 
+        <Amelioration isOpen={isAmeliorationOpen} onClose={handleCloseAmelioration} loadworld={world} buyUpgrades={buyUpgrades}/>
+
         <button onClick={handleOpenModal} className="manager-button">Managers</button>
         <Modal isOpen={isModalOpen} onClose={handleCloseModal} loadworld={world} hireManager={hireManager} money={money}/> 
          
         <button className="deblocage-button" onClick={handleOpenAllUnlocks}>Déblocages</button>
-        <AllUnlocks isOpen={isAllUnlocksOpen} onClose={handleCloseAllUnlocks} loadworld={world}  onAllUnlocks={onAllUnlocks}/>
+        <AllUnlocks isOpen={isAllUnlocksOpen} onClose={handleCloseAllUnlocks} loadworld={world}  />
         
         <button className="investisseur-button" onClick={handleOpenInvestisseurs}>Investisseurs</button>
         <Investisseurs isOpen={isInvestisseursOpen} onClose={handleCloseInvestisseurs} loadworld={world} username={username} />
 
-        <button className="amelioration-anges-button" onClick={handleOpenAngelUpgrades}>Angel Upgrade</button>
+        <button className="amelioration-anges-button" onClick={handleOpenAngelUpgrades}>Angel Upgrades</button>
         <AngelUpgrades isOpen={isAngelUpgradesOpen} onClose={handleCloseAngelUpgrades} loadworld={world}  buyAngelUpgrades={buyAngelUpgrades}/>
 
         </div>   

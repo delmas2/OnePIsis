@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
 import {Pallier, World} from "../world";
 import "../styles/AllUnlocks.css"
 import "../styles/Paliers.css"
-import {Button} from "@mui/material";
 
 
 type AllUnloksProps = {
     isOpen: boolean;
     onClose: () => void;
     loadworld: World;
-    onAllUnlocks: (allUnlocks: Pallier) => void;
 
 }
 function AllUnlocks({loadworld, isOpen, onClose}: AllUnloksProps) {
@@ -46,7 +43,7 @@ function AllUnlocks({loadworld, isOpen, onClose}: AllUnloksProps) {
         </div>
       ))}
       <div className="custom-modal-header">
-        <h1 className="custom-modal-title2">AllUnloks</h1>
+        <h1 className="custom-modal-title2">AllUnlocks</h1>
       </div>
       <div className="custom-modal-body">
         {loadworld.allunlocks.filter(allUnloks => !allUnloks.unlocked).map(allunlock => (
@@ -58,9 +55,7 @@ function AllUnlocks({loadworld, isOpen, onClose}: AllUnloksProps) {
               <h2 className="allunlock-name">{allunlock.name}</h2>
               <div className="allunlock-cost">{allunlock.seuil}</div>
               <div className="allunlock-ratio">{allunlock.typeratio} x{allunlock.ratio}</div>
-              {allunlock.unlocked && <p className="pallier-unlocked">Dévérouillé</p>}
-
-            </div>
+              </div>
           </div>
         ))}
       </div>

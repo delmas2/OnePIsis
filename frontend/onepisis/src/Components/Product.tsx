@@ -1,9 +1,9 @@
-import {  Product, World } from "../world"; // Import Product depuis le fichier "../world"
-import '../styles/Product.css'; // Import de la feuille de style "../styles/Product.css"
-import { transform } from "../utils"; // Import de la fonction "transform" depuis le fichier "../utils"
-import MyProgressbar, { Orientation } from './ProgressBar'; // Import de MyProgressbar et Orientation depuis le fichier "./ProgressBar"
-import {useInterval} from './MyInterval'; // Import de la fonction "useInterval" depuis le fichier "./MyInterval"
-import { useRef, useState } from "react"; // Import de la fonction "useRef" et "useState" depuis la librairie React
+import {  Product, World } from "../world"; 
+import '../styles/Product.css'; 
+import { transform } from "../utils"; 
+import MyProgressbar, { Orientation } from './ProgressBar'; 
+import {useInterval} from './MyInterval'; 
+import { useRef, useState } from "react"; 
 import { gql, useMutation } from "@apollo/client";
 
 
@@ -65,8 +65,9 @@ function ProductComponent({ product, onProductionDone, onProductBuy, money, qtmu
  useInterval(() => calcScore(), 100)
 
 
+//---------------- LANCER PRODUCTION ---------------------
 
-
+//--Mutation
  const [lancerProduction] = useMutation(LANCER_PRODUCTION,
   { context: { headers: { "x-user": username }},
   onError: (error): void => {
@@ -75,12 +76,16 @@ function ProductComponent({ product, onProductionDone, onProductBuy, money, qtmu
   }
  )
 
- // Fonction qui lance la production du produit
+ //--Fonction
  function startFabrication() {
   setTimeLeft(product.vitesse);
   lastUpdate.current = Date.now();
+
+  //mutation
   lancerProduction({ variables: { id: product.id } });
 }
+
+
 
  return (
   <div className="product-container">
