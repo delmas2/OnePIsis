@@ -179,7 +179,7 @@ function onProductionDone(p: Product): void {
     p.palliers.forEach(u => {
       if (u.idcible === p.id && p.quantite >= u.seuil && lastQuantite<u.seuil) {
         u.unlocked = true
-        setSnackbar(u.name + u.typeratio + "fois" + u.ratio + "débloqué!")
+        setSnackbar(u.name  + "débloqué!")
         setSnackbarOpen(true)
         
         if (u.typeratio === "vitesse") {
@@ -205,7 +205,7 @@ function onProductionDone(p: Product): void {
         })
         if (allunlocks) {
           a.unlocked = true
-          setSnackbar(a.name + a.typeratio + "fois" + a.ratio + "débloqué!")
+          setSnackbar(a.name + "débloqué!")
           setSnackbarOpen(true)
           if (a.typeratio === "ange") {
             world.angelbonus += a.ratio
@@ -320,7 +320,7 @@ function buyUpgrades(upgrades: Pallier): void{
       }
       acheterCashUpgrade({ variables: { name : upgrades.name} });
   }
-      setSnackbar(upgrades.name + upgrades.typeratio + "fois" + upgrades.ratio + "débloqué!")
+      setSnackbar(upgrades.name + "débloqué!")
       setSnackbarOpen(true)
   }
 }
@@ -382,7 +382,7 @@ function buyAngelUpgrades(angel: Pallier): void {
       </div>
       <div className="two">
         <span className="menu">Menu</span>
-        <div className="zzzz">
+        <div className="zzzz"> 
         
         <button onClick={handleOpenAmelioration} className="amelioration-button">Upgrades</button>
         <Amelioration isOpen={isAmeliorationOpen} onClose={handleCloseAmelioration} loadworld={world} buyUpgrades={buyUpgrades}/> 

@@ -79,16 +79,22 @@ query getWorld {
 
 function App() {
   
-  const [username, setUsername] = useState(localStorage.getItem('username') || `Nakama${Math.floor(Math.random() * 10000)}`);
-  const onUserNameChanged = (event: React.FormEvent<HTMLInputElement>) => {
-      const username = event.currentTarget.value;
-      setUsername(username);
-      localStorage.setItem('username', username);
-      // Force Apollo client de refetch le query avec le nveau username
-      client.resetStore();
-  };
-    
+  const [username, setUsername] = useState(localStorage.getItem('username') || `Youtubeur${Math.floor(Math.random()*10000)}`);
   
+  // mise a jour du monde quand on écrit dans la barre d'ID
+  const onUserNameChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    localStorage.setItem("username", event.currentTarget.value);
+    setUsername(event.currentTarget.value);
+    // forcer le client Apollo à refabriquer la requête
+    client.resetStore()
+    console.log(event.currentTarget.value);
+  };
+  // rechargement de la page lorsqu'on tappe la touche entrée pour réactualiser la money et le score
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      window.location.reload();
+    }
+  };
 
   const client = useApolloClient();
 
@@ -101,8 +107,6 @@ function App() {
   else if (error) corps = <div> Erreur de chargement du monde ! </div>
   else corps = <Main loadworld={data.getWorld} username={username} />
 
-
-
   return (
     <div className="App">
   
@@ -112,7 +116,7 @@ function App() {
 
     <div className="form">
     <div> Nom :</div>
-    <input type="text" value={username} onChange={onUserNameChanged}/>
+    <input type="text" value={username} onChange={onUserNameChanged} onKeyPress={handleKeyPress}/>
     </div>
     { corps }
     
