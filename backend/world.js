@@ -56,7 +56,7 @@ module.exports = {
                     "name": "Sandai Kitetsu",
                     "logo": "icones/Zoro2.png",
                     "seuil": 20,
-                    "idcible": 1,
+                    "idcible": 2,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -65,7 +65,7 @@ module.exports = {
                     "name": "Shusui",
                     "logo": "icones/Zoro3.png",
                     "seuil": 75,
-                    "idcible": 1,
+                    "idcible": 2,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -88,7 +88,7 @@ module.exports = {
                     "name": "Water Seven",
                     "logo": "icones/Usopp2.png",
                     "seuil": 20,
-                    "idcible": 1,
+                    "idcible":3,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -97,7 +97,7 @@ module.exports = {
                     "name": "Midori Boshi",
                     "logo": "icones/Usopp3.png",
                     "seuil": 75,
-                    "idcible": 1,
+                    "idcible": 3,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -120,7 +120,7 @@ module.exports = {
                     "name": "Jambe du diable",
                     "logo": "icones/Sanji2.png",
                     "seuil": 20,
-                    "idcible": 1,
+                    "idcible": 4,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -129,7 +129,7 @@ module.exports = {
                     "name": "Raid Suit",
                     "logo": "icones/Sanji3.png",
                     "seuil": 75,
-                    "idcible": 1,
+                    "idcible": 4,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -152,7 +152,7 @@ module.exports = {
                     "name": "Climat-Tact",
                     "logo": "icones/Nami2.png",
                     "seuil": 20,
-                    "idcible": 1,
+                    "idcible": 5,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -161,7 +161,7 @@ module.exports = {
                     "name": "Sorcery Climat-Tact",
                     "logo": "icones/Nami3.png",
                     "seuil": 75,
-                    "idcible": 1,
+                    "idcible": 5,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -184,7 +184,7 @@ module.exports = {
                     "name": "Walk Point",
                     "logo": "icones/Chopper2.png",
                     "seuil": 20,
-                    "idcible": 1,
+                    "idcible": 6,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -193,7 +193,7 @@ module.exports = {
                     "name": "Heavy Point",
                     "logo": "icones/Chopper3.png",
                     "seuil": 75,
-                    "idcible": 1,
+                    "idcible": 6,
                     "ratio": 2,
                     "typeratio": "vitesse",
                     "unlocked": false
@@ -362,7 +362,7 @@ module.exports = {
         {
             "name": "Franky",
             "logo": "icones/AngelFranky.png",
-            "seuil": 10,
+            "seuil": 100,
             "idcible": 0,
             "ratio": 3,
             "typeratio": "gain",
@@ -371,7 +371,7 @@ module.exports = {
         {
             "name": "Brook",
             "logo": "icones/AngelBrook.png",
-            "seuil": 10,
+            "seuil": 1000,
             "idcible": 0,
             "ratio": 3,
             "typeratio": "gain",
@@ -380,7 +380,7 @@ module.exports = {
         {
             "name": "Jinbei",
             "logo": "icones/AngelJimbei.png",
-            "seuil": 10,
+            "seuil": 10000,
             "idcible": -1,
             "ratio": 3,
             "typeratio": "gain",
