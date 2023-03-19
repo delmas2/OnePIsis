@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.13",
     "apollo-server-express": "^3.11.1",
     "graphql": "^16.6.0",
     "nodemon": "^2.0.20"

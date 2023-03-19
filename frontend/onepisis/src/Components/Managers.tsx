@@ -8,14 +8,14 @@ interface ModalProps {
     onClose: () => void;
     loadworld: World,
     hireManager:(manager:Pallier) => void
+    money: number
   }
   
-  export default function Modal({ isOpen, onClose, loadworld, hireManager }: ModalProps) {
+  export default function Modal({ isOpen, onClose, loadworld, hireManager, money }: ModalProps) {
     const[world, setWorld]= useState(loadworld)
-    const[money, setMoney]= useState(world.money)
 
     function onHireManager(manager: Pallier){
-        if(world.money>=manager.seuil){
+        if(money>=manager.seuil){
             hireManager(manager)
         }
     }
@@ -26,7 +26,7 @@ interface ModalProps {
           <span className="close" onClick={onClose}>
             &times;
           </span>
-          <p>Achètes les personnages préférés de tes personnages préferés</p>
+          <p>Automatise tes produits!</p>
           <div className="manager" >
             <div>
                 {<div>
@@ -49,7 +49,7 @@ interface ModalProps {
                                                 <div className="infosmanager">
                                                     <div className="managername">{manager.name}</div>
                                                     <div className="managercible">
-                                                        {world.products[manager.idcible - 1].name}
+                                                        {world.products[manager.idcible - 1].name} génèrera de l'argent tout seul
                                                     </div>
                                                     <div className="managercost">{manager.seuil}</div>
                                                 </div>

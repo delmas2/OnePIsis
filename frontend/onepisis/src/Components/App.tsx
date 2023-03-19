@@ -91,18 +91,17 @@ function App() {
   
 
   const client = useApolloClient();
-  const { loading, error, data } = useQuery(GET_WORLD, {
-      context: { headers: { 'x-user': username } },
+
+  const { loading, error, data, refetch } = useQuery(GET_WORLD, {
+    context: { headers: { "x-user": username } }
   });
 
+  let corps = undefined
+  if (loading) corps = <div> Loading... </div>
+  else if (error) corps = <div> Erreur de chargement du monde ! </div>
+  else corps = <Main loadworld={data.getWorld} username={username} />
 
-  
-   let main = undefined
-   let corps = undefined
-   if (loading) corps = <div> Loading... </div>
-   else if (error) corps = <div> Erreur de chargement du monde ! </div>
-   else main= <div> <Main loadworld={data.getWorld} username={username} /> </div>;
-   
+
 
   return (
     <div className="App">
@@ -116,7 +115,7 @@ function App() {
     <input type="text" value={username} onChange={onUserNameChanged}/>
     </div>
     { corps }
-    { main}
+    
   </div>
   
   <div className="two">

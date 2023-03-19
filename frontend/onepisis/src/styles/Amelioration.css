@@ -1,6 +1,5 @@
-
 /* Styles pour la fenêtre modale */
-.modal {
+.upgrade {
   display: none; /* Par défaut, la fenêtre modale n'est pas affichée */
   position: fixed; /* Positionnement fixe pour qu'elle reste en haut de l'écran */
   z-index: 1; /* Assure que la fenêtre modale soit au-dessus de tout le reste */
@@ -13,7 +12,7 @@
 }
 
 /* Styles pour la fenêtre modale ouverte */
-.modal.open {
+.upgrade.open {
   display: block; /* Affiche la fenêtre modale */
 }
 
@@ -42,8 +41,8 @@
   cursor: pointer;
 }
 
-/* Styles pour la grille des upgrades */
-.upgrade-grid {
+/* Styles pour la grille des gestionnaires */
+.upgrade-grid{
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto auto;
@@ -54,7 +53,7 @@
   margin-bottom: 20px;
 }
 
-/* Styles pour le logo de l'upgrade */
+/* Styles pour le logo du gestionnaire */
 .logo {
   grid-area: logo;
 }
@@ -65,7 +64,7 @@
   border-radius: 50%;
 }
 
-/* Styles pour les informations de l'upgrade */
+/* Styles pour les informations du gestionnaire */
 .infosupgrade {
   grid-area: infos;
 }
@@ -76,13 +75,17 @@
   margin-bottom: 5px;
 }
 
+.managercible {
+  margin-bottom: 5px;
+}
+
 .upgradecost {
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 5px;
 }
 
-/* Styles pour le bouton "Acheter" */
+/* Styles pour le bouton "Hire" */
 .acheter {
   padding: 10px;
   background-color: #4CAF50;

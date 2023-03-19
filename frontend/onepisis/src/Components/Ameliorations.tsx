@@ -27,7 +27,7 @@ interface AmeliorationProps {
             &times;
           </span>
           <p>Améliore ton rendement!</p>
-          <div className="upgrade" >
+          <div className="upgrades" >
             <div>
                 {<div>
                         <div>
@@ -36,7 +36,8 @@ interface AmeliorationProps {
                                     (upgrades: Pallier) => {
                         
                                         return (
-                                            <div key={upgrades.idcible} className="upgrade-grid">
+                                            
+                                            <div className="upgrade-grid " key={upgrades.name}>
                                                 <div>
                                                     <div className="logo">
                                                         <img
@@ -49,6 +50,8 @@ interface AmeliorationProps {
                                                 <div className="infosupgrade">
                                                     <div className="upgradename">{upgrades.name}</div>
                                                     <div className="upgradecost">{upgrades.seuil}</div>
+                                                    <div className="upgradecost">{upgrades.typeratio}</div>
+                                                    <div className="upgradecost">X{upgrades.ratio}</div>
                                                 </div>
                                                 <div onClick={() => onBuyUpgrades(upgrades)}>
                                                     <button className="acheter" disabled={money < upgrades.seuil}>Acheter!</button>
