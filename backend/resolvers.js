@@ -175,9 +175,9 @@ module.exports = {
             }
             else {
                 //On paye l'achat et actualise le coût et la quantité du produit
-                context.world.money -= Math.round(produit.cout * (coefficient-1) / (produit.croissance-1))
-                console.log(Math.round(produit.cout * (coefficient-1) / (produit.croissance-1)))
-                produit.cout = Math.round(produit.cout * Math.pow(produit.croissance, ajoutQuantite))
+                context.world.money -= produit.cout * (coefficient-1) / (produit.croissance-1)
+                console.log(produit.cout * (coefficient-1) / (produit.croissance-1))
+                produit.cout = produit.cout * Math.pow(produit.croissance, ajoutQuantite)
                 produit.quantite += ajoutQuantite
 
                 //On sélectionne tous les paliers qui ne sont pas encore débloqués et qui doivent le devenir
