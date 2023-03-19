@@ -167,7 +167,7 @@ module.exports = {
 
             let produit = world.products.find((prod) => prod.id === idProduit)
 
-            let coefficient = Math.pow(produit.croissance, produit.quantite)
+            let coefficient = Math.pow(produit.croissance, ajoutQuantite)
 
             if (produit === undefined) {
                 throw new Error(
@@ -175,8 +175,9 @@ module.exports = {
             }
             else {
                 //On paye l'achat et actualise le coût et la quantité du produit
-                context.world.money -= produit.cout * (1 - coefficient) / (1 - produit.croissance)
-                produit.cout = produit.cout * Math.pow(produit.croissance, ajoutQuantite)
+                context.world.money -= Math.round(produit.cout * (coefficient-1) / (produit.croissance-1))
+                console.log(Math.round(produit.cout * (coefficient-1) / (produit.croissance-1)))
+                produit.cout = Math.round(produit.cout * Math.pow(produit.croissance, ajoutQuantite))
                 produit.quantite += ajoutQuantite
 
                 //On sélectionne tous les paliers qui ne sont pas encore débloqués et qui doivent le devenir
