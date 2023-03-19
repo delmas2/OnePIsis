@@ -181,7 +181,7 @@ module.exports = {
                 produit.quantite += ajoutQuantite
 
                 //On sélectionne tous les paliers qui ne sont pas encore débloqués et qui doivent le devenir
-                let palliersNonDebloques = produit.palliers.filter(pr => pr.unlocked === false && pr.seuil < produit.quantite)
+                let palliersNonDebloques = produit.palliers.filter(pr => pr.unlocked === false && pr.seuil <= produit.quantite)
 
                 //On parcours les palliers filtrés et on les débloque
                 palliersNonDebloques.forEach(pa => {
@@ -204,7 +204,7 @@ module.exports = {
 
                 //Pour chaque allunlock, si le seuil est plus petit que minQuantite, il est débloqué
                 allUnlocksNonDebloques.forEach(unlock => {
-                    if (minQuantite > unlock.seuil) {
+                    if (minQuantite >= unlock.seuil) {
                         console.log("itération" + minQuantite + unlock.seuil)
                         appliquerBonus(unlock, context)
                     }
